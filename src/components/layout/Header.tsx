@@ -48,7 +48,7 @@ export function Header() {
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
@@ -63,7 +63,7 @@ export function Header() {
             </li>
             <li className={path.startsWith("/projects") ? "active" : ""}>
               <Link href="/projects">
-                <span>Projects</span>
+                <span>Showcase</span>
               </Link>
             </li>
             <li className={path.startsWith("/blog") ? "active" : ""}>
@@ -90,15 +90,11 @@ export function Header() {
           <div className="flex items-center justify-between">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Ikhsanuddin</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
+              <Logo/>
             </Link>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-300 dark:text-gray-300"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -106,7 +102,7 @@ export function Header() {
             </button>
           </div>
           <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
+            <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-100/10">
               
               <div className="space-y-2 py-6 text-gray-900 dark:text-gray-100">
                 <Link
@@ -119,7 +115,7 @@ export function Header() {
                   href="/projects"
                   className={`${path.startsWith("/projects") ? "active " : ""}-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
                 >
-                  Project
+                  Showcase
                 </Link>
                 <Link
                   href="/blog"
