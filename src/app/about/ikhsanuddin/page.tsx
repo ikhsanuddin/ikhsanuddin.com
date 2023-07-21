@@ -6,6 +6,23 @@ export const metadata: Metadata = {
   title: "About - Ikhsanuddin Syamsuri",
   description:
     "Ikhsan is a web developer, with his main focus was in frontend, but he also be able to do backend and devops to help in development process",
+  openGraph: {
+    title: "About - Ikhsanuddin Syamsuri",
+    description:
+      "Ikhsan is a web developer, with his main focus was in frontend, but he also be able to do backend and devops to help in development process",
+    url: "https://ikhsanuddin.com",
+    siteName: "IKhsanuddin Syamsuri",
+    images: [
+      {
+        url: "https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin?tr=w-1080",
+        width: 1080,
+        height: 741,
+        alt: "Ikhsanuddin Syamsuri",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function Ikhsanuddin() {

@@ -1,6 +1,28 @@
 import { compareDesc, format, parseISO } from "date-fns";
 import { allPosts, Post } from "contentlayer/generated";
 import PostCard from "@/components/PostCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog - Ikhsanuddin Syamsuri",
+  description: "Ikhsanuddin's programming journey",
+  openGraph: {
+    title: "Blog - Ikhsanuddin Syamsuri",
+    description: "Ikhsanuddin's programming journey",
+    url: "https://ikhsanuddin.com/blog",
+    siteName: "IKhsanuddin Syamsuri",
+    images: [
+      {
+        url: "https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin?tr=w-1080",
+        width: 1080,
+        height: 741,
+        alt: "Ikhsanuddin Syamsuri",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export default function Blog() {
   const posts = allPosts.sort((a, b) =>

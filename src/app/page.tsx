@@ -1,8 +1,29 @@
 import Link from "next/link";
-import { ParallaxProviders } from "./providers";
-import { Parallax } from "@/components/Paralax";
-import { SiKubernetes } from "react-icons/si";
 import ShipWheel from "@/components/svg/ShipWheel";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Ikhsanuddin Syamsuri",
+  description:
+    "Lead Software Engineer at Twospaces, creating smart property management and bring inovation to hospitality industries",
+  openGraph: {
+    title: "Ikhsanuddin Syamsuri",
+    description:
+      "Lead Software Engineer at Twospaces, creating smart property management and bring inovation to hospitality industries",
+    url: "https://ikhsanuddin.com",
+    siteName: "IKhsanuddin Syamsuri",
+    images: [
+      {
+        url: "https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin?tr=w-1080",
+        width: 1080,
+        height: 741,
+        alt: "Ikhsanuddin Syamsuri",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export default function Home() {
   return (
@@ -22,7 +43,7 @@ export default function Home() {
           </h3>
           <Link
             className="rounded-full inline-block mt-4 bg-orange-600 px-7 py-3 text-base font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
-            href={"/project/twospaces"}
+            href={"/about/ikhsanuddin"}
           >
             Explore More
           </Link>
@@ -33,19 +54,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* <ParallaxProviders>
-        <Parallax speed={-10}>
-          <div>xxxx</div>
-        </Parallax>
-      </ParallaxProviders>
-      <Link href="/blog">
-        <h2>
-          Blog <span>-&gt;</span>
-        </h2>
-        <p>
-          Find in-depth information what i an doing and what have been done.
-        </p>
-      </Link> */}
     </main>
   );
 }

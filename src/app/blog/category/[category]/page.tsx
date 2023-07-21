@@ -4,7 +4,24 @@ import { Metadata } from "next";
 import PostCard from "@/components/PostCard";
 
 export const metadata: Metadata = {
-  title: "Post Category - Ikhsanuddin Syamsuri",
+  title: "Blog Categories - Ikhsanuddin Syamsuri",
+  description: "Ikhsanuddin's programming journey",
+  openGraph: {
+    title: "Blog Categories - Ikhsanuddin Syamsuri",
+    description: "Ikhsanuddin's programming journey",
+    url: "https://ikhsanuddin.com/blog",
+    siteName: "IKhsanuddin Syamsuri",
+    images: [
+      {
+        url: "https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin?tr=w-1080",
+        width: 1080,
+        height: 741,
+        alt: "Ikhsanuddin Syamsuri",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default async function Category({

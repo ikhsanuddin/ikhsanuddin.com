@@ -4,11 +4,44 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { MDXComponents } from "mdx/types";
 import { format, parseISO } from "date-fns";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Blog Post - Ikhsanuddin Syamsuri",
+import { Metadata, ResolvingMetadata } from "next";
+
+type Props = {
+  params: { slug: string };
 };
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+
+  return {
+    title: post?.title,
+    description: post?.title,
+    openGraph: {
+      title: post?.title,
+      description: post?.title,
+      url: `https://ikhsanuddin.com/blog/${params.slug}`,
+      siteName: "IKhsanuddin Syamsuri",
+      images: [
+        {
+          url: "https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin?tr=w-1080",
+          width: 1080,
+          height: 741,
+          alt: "Ikhsanuddin Syamsuri",
+        },
+      ],
+      locale: "en_US",
+      type: "article",
+      publishedTime: post?.date,
+      authors: post?.author?.name || "Ikhsanuddin Syamsuri",
+      section: post?.category,
+      tags: post?.category
+    },
+  };
+}
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
