@@ -3,6 +3,7 @@ import "./globals.css";
 import { Poppins, Roboto } from "next/font/google";
 import { ThemeProviders } from "./providers";
 import Footer from "@/components/layout/Footer";
+import { Metadata } from 'next'
 
 const popins = Poppins({ subsets: ["latin"], weight: ["400"] });
 const roboto = Roboto({
@@ -11,6 +12,10 @@ const roboto = Roboto({
   subsets: ["latin"],
   style: ["normal"],
 });
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://ikhsanuddin.com'),
+}
 
 export default function RootLayout({
   children,
