@@ -42,7 +42,7 @@ export function Header() {
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Ikhsanuddin</span>
-              <Logo/>
+              <Logo />
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -90,7 +90,7 @@ export function Header() {
           <div className="flex items-center justify-between">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Ikhsanuddin</span>
-              <Logo/>
+              <Logo />
             </Link>
             <button
               type="button"
@@ -103,23 +103,28 @@ export function Header() {
           </div>
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-100/10">
-              
               <div className="space-y-2 py-6 text-gray-900 dark:text-gray-100">
                 <Link
                   href="/about/ikhsanuddin"
-                  className={`${path.startsWith("/about") ? "active " : ""}-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
+                  className={`${
+                    path.startsWith("/about") ? "active " : ""
+                  }-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
                 >
                   About
                 </Link>
                 <Link
                   href="/projects"
-                  className={`${path.startsWith("/projects") ? "active " : ""}-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
+                  className={`${
+                    path.startsWith("/projects") ? "active " : ""
+                  }-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
                 >
                   Showcase
                 </Link>
                 <Link
                   href="/blog"
-                  className={`${path.startsWith("/blog") ? "active " : ""}-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
+                  className={`${
+                    path.startsWith("/blog") ? "active " : ""
+                  }-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
                 >
                   Blog
                 </Link>

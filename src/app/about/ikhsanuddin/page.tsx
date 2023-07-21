@@ -96,7 +96,10 @@ export default function Ikhsanuddin() {
               </p>
               <p className="mb-8"></p>
 
-              <ul role="list" className="mt-8 space-y-8 text-gray-600 dark:text-gray-300">
+              <ul
+                role="list"
+                className="mt-8 space-y-8 text-gray-600 dark:text-gray-300"
+              >
                 <li className="flex gap-x-3">
                   {/* <CloudArrowUpIcon className="mt-1 h-5 w-5 flex-none text-orange-600" aria-hidden="true" /> */}
                   <span>
