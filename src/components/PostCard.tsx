@@ -1,11 +1,8 @@
 import { Post } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
-import { useMDXComponent } from "next-contentlayer/hooks";
 import Link from "next/link";
-import { mdxComponents } from "./MdxCompinentIntrepeter";
 
 export default function PostCard(post: Post) {
-    const MDXContent = useMDXComponent(post.body.code);
   
     return (
       <article className="flex max-w-xl flex-col items-start justify-between">
@@ -27,8 +24,8 @@ export default function PostCard(post: Post) {
               {post.title}
             </Link>
           </h3>
-          <div className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-50 ease-in-out duration-300">
-            <MDXContent components={mdxComponents} />
+          <div style={{ wordBreak: 'break-word'}} className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-50 ease-in-out duration-300 break-words	">
+            {post.body.raw}
           </div>
         </div>
           <div className="relative mt-8 flex items-center gap-x-4">
