@@ -36,6 +36,13 @@ export const Post = defineDocumentType(() => ({
     title: { type: "string", required: true },
     date: { type: "date", required: true },
     category: { type: "string", required: true },
+    imageUrl: {
+      type: "string",
+      required: true,
+    },
+    imageClassName: {
+      type: "string",
+    },
     author: {
       type: "nested",
       of: Author,

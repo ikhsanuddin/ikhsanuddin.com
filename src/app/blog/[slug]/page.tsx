@@ -27,6 +27,12 @@ export async function generateMetadata(
       siteName: "IKhsanuddin Syamsuri",
       images: [
         {
+          url: post?.imageUrl || "https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin?tr=w-1080",
+          width: 640,
+          height: 480,
+          alt: post?.title,
+        },
+        {
           url: "https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin?tr=w-1080",
           width: 1080,
           height: 741,
@@ -38,7 +44,7 @@ export async function generateMetadata(
       publishedTime: post?.date,
       authors: post?.author?.name || "Ikhsanuddin Syamsuri",
       section: post?.category,
-      tags: post?.category
+      tags: post?.category,
     },
   };
 }
@@ -50,7 +56,11 @@ export async function generateStaticParams() {
 }
 
 const mdxComponents: MDXComponents = {
-  Link: ({ href, children }) => <Link href={href as string}>{children}</Link>,
+  Link: ({ href, children, ...LinkProps }) => (
+    <Link href={href as string} {...LinkProps}>
+      {children}
+    </Link>
+  ),
 };
 
 function Article({ post }: { post: string }) {
@@ -69,7 +79,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <main className="min-h-screen">
-      <article className="max-w-4xl px-6 pt-32 py-24 mx-auto space-y-12 dark:text-gray-50">
+      <article className="max-w-4xl px-6 pt-40 py-24 mx-auto space-y-12 dark:text-gray-50">
         <div className="w-full mx-auto space-y-4 text-center">
           <Link
             href={`/blog/category/${post.category.toLowerCase()}`}
@@ -83,7 +93,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <Link
               rel="noopener noreferrer"
               href="/about/ikhsanuddin"
-              className="underline dark:text-violet-400"
+              className="underline dark:text-orange-400"
             >
               <span itemProp="name">Ikhsanuddin Syamsuri</span>
             </Link>{" "}
@@ -93,6 +103,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </time>
           </p>
         </div>
+        <div
+          className={`mx-auto ${
+            post.imageClassName ? post.imageClassName : "bg-gray-50 dark:bg-gray-900"
+          } `}
+        >
+          <picture>
+            <img
+              src={post.imageUrl}
+              alt={post.title}
+              className="mx-auto md:justify-self-start dark:bg-gray-500"
+            />
+          </picture>
+        </div>
         <div className="prose dark:prose-invert lg:prose-xl dark:text-gray-100">
           <Article post={post.body.code} />
         </div>
@@ -100,7 +123,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
             <picture className="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-700">
               <img
-                src="https://lh3.googleusercontent.com/a/AAcHTteZ-4tWpRkR8nbKwpaDy-TBQXeuHlZNt3V_tND2oYyFpaY=s288-c-no"
+                src="https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin-512.jpg"
                 alt="Ikhsanuddin Syasmuri"
                 className="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-700"
               />
