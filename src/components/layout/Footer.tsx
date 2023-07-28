@@ -16,21 +16,31 @@ export default function Footer() {
           />
           <SiMdx title="MDX" className="hover:text-orange-500 mr-2" />
         </div>
-        <div className="text-sm lg:text-right lg:order-3 mx-auto lg:ml-auto">
-          <Link className="mr-2" href="/blog">
-            Blog
-          </Link>
-          <Link className="mr-2" href="/about/ikhsanuddin">
-            About
-          </Link>
-          <Link className="mr-2" href="/projects">
-            Projects
-          </Link>
-          <Link className="mr-2" href="/sitemap.xml">
-            Sitemap
-          </Link>
-          <Link href="/">Home</Link>
-        </div>
+        <ul className="text-sm lg:text-right lg:order-3 mx-auto lg:ml-auto flex">
+          <li>
+            <Link className="mr-2" href="/blog">
+              Blog
+            </Link>
+          </li>
+          <li>
+            <Link className="mr-2" href="/about/ikhsanuddin">
+              About
+            </Link>
+          </li>
+          <li>
+            <Link className="mr-2" href="/projects">
+              Projects
+            </Link>
+          </li>
+          <li>
+            <Link className="mr-2" href="/sitemap.xml">
+              Sitemap
+            </Link>
+          </li>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+        </ul>
         <p className="text-center mx-auto text-gray-500 lg:order-2 md:col-span-2 lg:col-span-1">
           Copyright © 2023
         </p>
