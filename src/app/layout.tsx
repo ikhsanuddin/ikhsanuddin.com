@@ -13,9 +13,48 @@ const roboto = Roboto({
   style: ["normal"],
 });
 
+const APP_NAME = "Ikhsanuddin";
+const APP_DEFAULT_TITLE = "Ikhsanuddin Syamsuri";
+const APP_TITLE_TEMPLATE = "%s - Ikhsanuddin Syamsuri";
+const APP_DESCRIPTION = "Sofware Engineer - Senior Web Developer - React.js - Typescript";
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://ikhsanuddin.com'),
-}
+  applicationName: APP_NAME,
+  title: {
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
+  },
+  description: APP_DESCRIPTION,
+  manifest: "/manifest.json",
+  themeColor: "#111827",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: APP_DEFAULT_TITLE,
+    // startUpImage: [],
+  },
+  formatDetection: {
+    telephone: true,
+  },
+  openGraph: {
+    type: "website",
+    siteName: APP_NAME,
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary",
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  },
+};
 
 export default function RootLayout({
   children,

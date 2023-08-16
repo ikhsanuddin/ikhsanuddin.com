@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /~offline
 
 sitemap: https://ikhsanuddin.com/sitemap.xml

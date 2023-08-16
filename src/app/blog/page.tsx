@@ -4,7 +4,7 @@ import PostCard from "@/components/PostCard";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog - Ikhsanuddin Syamsuri",
+  title: "Blog",
   description: "Ikhsanuddin's programming journey",
   openGraph: {
     title: "Blog - Ikhsanuddin Syamsuri",
