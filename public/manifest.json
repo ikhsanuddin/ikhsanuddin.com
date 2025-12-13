@@ -1,6 +1,6 @@
 {
     "short_name": "Ikhsanuddin",
-    "name": "Ikhsanuddin Syamsuri - PWA",
+    "name": "Ikhsanuddin - Senior Software Engineer",
     "icons": [
       {
         "src": "favicon.ico",
@@ -10,18 +10,21 @@
       {
         "src": "logo192.png",
         "type": "image/png",
-        "sizes": "192x192"
+        "sizes": "192x192",
+        "purpose": "any maskable"
       },
       {
         "src": "logo512.png",
         "type": "image/png",
-        "sizes": "512x512"
+        "sizes": "512x512",
+        "purpose": "any maskable"
       }
     ],
     "start_url": "/",
     "display": "standalone",
-    "theme_color": "#7e7e7e",
-    "background_color": "#7e7e7e",
-    "orientation": "portrait"
+    "theme_color": "#0a0a0a",
+    "background_color": "#0a0a0a",
+    "orientation": "portrait",
+    "description": "Senior Software Engineer specializing in React.js, Node.js, TypeScript, and Cloud Architecture"
   }
   

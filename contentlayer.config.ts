@@ -52,7 +52,7 @@ export const Post = defineDocumentType(() => ({
     readingTime: { type: "json", resolve: (doc) => readingTime(doc.body.raw) },
     wordCount: {
       type: "number",
-      resolve: (doc) => doc.body.raw.split(/\s+/gu).length,
+      resolve: (doc) => doc.body.raw.split(/\s+/g).length,
     },
     url: {
       type: "string",
@@ -66,6 +66,6 @@ export default makeSource({
   documentTypes: [Post],
   mdx: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [highlight],
+    rehypePlugins: [highlight as any],
   },
 });

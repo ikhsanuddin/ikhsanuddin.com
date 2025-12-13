@@ -2,44 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-roboto);
+@layer base {
+  body {
+    @apply bg-light-bg text-light-accent;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  .dark body {
+    @apply bg-dark-bg text-white;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
-/*----------------------------------------*/
-/*  - header
-/*----------------------------------------*/
-.main-menu {
-  @apply lg:flex justify-start uppercase leading-8 text-[14px];
-}
-.main-menu li a {
-  @apply block mx-[20px];
-}
-.main-menu li a span {
-  @apply relative block before:absolute before:left-0 before:bottom-0 before:right-0 before:h-[1px] before:opacity-0 before:bg-slate-500 before:transform before:scale-x-[0.2] before:transition before:duration-500 hover:before:opacity-100 hover:before:scale-x-100 dark:before:bg-white;
-}
-.main-menu li.active a span {
-  @apply before:opacity-100 before:scale-x-100;
-}
-.main-menu .navigation > li > ul {
-  padding: 20px 15px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-.is-sticky.sticky-navbar {
-  @apply bg-[#eeeeee80] backdrop-blur-md dark:bg-[#11111180];
-}
-.sticky-navbar {
-  @apply fixed transition duration-300 top-0 left-0 w-full z-20;
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-#mobile-main-menu .active, #mobile-main-menu .flow-root a:hover{
- @apply bg-gray-50 dark:text-gray-900
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-light-bg;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-dark-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-light-secondary;
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-dark-secondary;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-light-accent;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-dark-accent;
 }
