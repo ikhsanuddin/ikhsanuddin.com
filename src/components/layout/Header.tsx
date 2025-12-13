@@ -10,91 +10,123 @@ import Logo from "@/components/svg/Logo";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isOnAbout, setIsOnAbout] = useState(false);
   const path = usePathname();
 
-  const header = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    window.addEventListener("scroll", isSticky);
-
-    return () => {
-      window.removeEventListener("scroll", isSticky);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > window.innerHeight - headerRef.current!.offsetHeight);
+      setIsOnAbout(window.scrollY > window.innerHeight);
     };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isSticky = () => {
-    const scrollTop = window.scrollY;
-    scrollTop >= 90
-      ? header.current?.classList.add("is-sticky")
-      : header.current?.classList.remove("is-sticky");
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(`section-${sectionId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
-    <header className="absolute w-full z-10">
+    <header ref={headerRef} className="fixed top-0 w-full z-50 transition-all duration-300">
       <div
-        className="sticky-holder fixed header-section sticky-navbar"
-        ref={header}
+        className={`transition-colors duration-300 ${
+          isScrolled
+            ? "bg-gradient-to-br from-light-primary/20 via-light-secondary/20 to-light-accent/20 dark:from-dark-primary/20 dark:via-dark-secondary/20 dark:to-dark-accent/20 backdrop-blur-md shadow-lg"
+            : "bg-transparent"
+        }`}
       >
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+          className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5 hover:opacity-80 transition-opacity">
               <span className="sr-only">Ikhsanuddin</span>
               <Logo />
             </Link>
           </div>
-          <div className="flex lg:hidden">
+          <div className="flex lg:hidden gap-4 items-center">
+            <TogleDark />
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
               <SlMenu className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <ul className="hidden lg:flex lg:gap-x-12 text-dark dark:text-white main-menu">
-            <li className={path.startsWith("/about") ? "active" : ""}>
-              <Link href="/about/ikhsanuddin">
-                <span>About</span>
+          <ul className="hidden lg:flex lg:gap-x-8 items-center">
+            <li>
+              <Link 
+                href="/about/ikhsanuddin"
+                onClick={(e)=> {
+                  e.preventDefault();
+                  scrollToSection("summary");
+                }}
+                className={`text-base font-medium transition-colors hover:text-light-secondary dark:hover:text-dark-accent ${
+                  isOnAbout
+                    ? "text-light-secondary dark:text-dark-accent" 
+                    : "text-gray-700 dark:text-gray-300"
+                }`}
+              >
+                About
               </Link>
             </li>
-            <li className={path.startsWith("/projects") ? "active" : ""}>
-              <Link href="/projects">
-                <span>Showcase</span>
+            <li>
+              <Link 
+                href="/projects"
+                className={`text-base font-medium transition-colors hover:text-light-secondary dark:hover:text-dark-accent ${
+                  path.startsWith("/projects") 
+                    ? "text-light-secondary dark:text-dark-accent" 
+                    : "text-gray-700 dark:text-gray-300"
+                }`}
+              >
+                Showcase
               </Link>
             </li>
-            <li className={path.startsWith("/blog") ? "active" : ""}>
-              <Link href="/blog">
-                <span>Blog</span>
+            <li>
+              <Link 
+                href="/blog"
+                className={`text-base font-medium transition-colors hover:text-light-secondary dark:hover:text-dark-accent ${
+                  path.startsWith("/blog") 
+                    ? "text-light-secondary dark:text-dark-accent" 
+                    : "text-gray-700 dark:text-gray-300"
+                }`}
+              >
+                Blog
               </Link>
+            </li>
+            <li>
+              <TogleDark />
             </li>
           </ul>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <TogleDark />
-          </div>
         </nav>
       </div>
 
       <Dialog
         as="div"
         className="lg:hidden"
-        id="mobile-main-menu"
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
       >
-        <div className="fixed inset-0 z-20" />
-        <Dialog.Panel className="fixed backdrop-blur-md inset-y-0 right-0 z-20 w-full overflow-y-auto bg-white/50 dark:bg-gray-500/50 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <div className="fixed inset-0 z-50 bg-black/20 dark:bg-black/40 backdrop-blur-sm" />
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:sm:ring-white/10">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
               <span className="sr-only">Ikhsanuddin</span>
               <Logo />
             </Link>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-300 dark:text-gray-300"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -102,35 +134,45 @@ export function Header() {
             </button>
           </div>
           <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-100/10">
-              <div className="space-y-2 py-6 text-gray-900 dark:text-gray-100">
+            <div className="-my-6 divide-y divide-gray-200 dark:divide-gray-700">
+              <div className="space-y-2 py-6">
                 <Link
                   href="/about/ikhsanuddin"
-                  className={`${
-                    path.startsWith("/about") ? "active " : ""
-                  }-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false)
+                    scrollToSection("summary");
+                    e.preventDefault();
+                  }}
+                  className={`-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 transition-colors ${
+                    isOnAbout
+                      ? "bg-light-secondary/10 dark:bg-dark-accent/10 text-light-secondary dark:text-dark-accent"
+                      : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
+                  }`}
                 >
                   About
                 </Link>
                 <Link
                   href="/projects"
-                  className={`${
-                    path.startsWith("/projects") ? "active " : ""
-                  }-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 transition-colors ${
+                    path.startsWith("/projects")
+                      ? "bg-light-secondary/10 dark:bg-dark-accent/10 text-light-secondary dark:text-dark-accent"
+                      : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
+                  }`}
                 >
                   Showcase
                 </Link>
                 <Link
                   href="/blog"
-                  className={`${
-                    path.startsWith("/blog") ? "active " : ""
-                  }-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 transition-colors ${
+                    path.startsWith("/blog")
+                      ? "bg-light-secondary/10 dark:bg-dark-accent/10 text-light-secondary dark:text-dark-accent"
+                      : "text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
+                  }`}
                 >
                   Blog
                 </Link>
-              </div>
-              <div className="py-6">
-                <TogleDark />
               </div>
             </div>
           </div>

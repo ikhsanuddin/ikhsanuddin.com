@@ -1,22 +1,19 @@
-import { Header } from "@/components/layout/Header";
 import "./globals.css";
-import { Poppins, Roboto } from "next/font/google";
-import { ThemeProviders } from "./providers";
-import Footer from "@/components/layout/Footer";
+import { Inter } from "next/font/google";
 import { Metadata } from 'next'
+import Footer from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { ThemeProviders } from "./providers";
 
-const popins = Poppins({ subsets: ["latin"], weight: ["400"] });
-const roboto = Roboto({
-  weight: ["700", "300", "400"],
-  variable: "--font-roboto",
+const inter = Inter({ 
   subsets: ["latin"],
-  style: ["normal"],
+  variable: "--font-inter",
 });
 
 const APP_NAME = "Ikhsanuddin";
-const APP_DEFAULT_TITLE = "Ikhsanuddin Syamsuri";
-const APP_TITLE_TEMPLATE = "%s - Ikhsanuddin Syamsuri";
-const APP_DESCRIPTION = "Sofware Engineer - Senior Web Developer - React.js - Typescript";
+const APP_DEFAULT_TITLE = "Ikhsanuddin - Senior Software Engineer";
+const APP_TITLE_TEMPLATE = "%s - Ikhsanuddin";
+const APP_DESCRIPTION = "Senior Software Engineer specializing in React.js, Node.js, TypeScript, and Cloud Architecture";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ikhsanuddin.com'),
@@ -27,12 +24,11 @@ export const metadata: Metadata = {
   },
   description: APP_DESCRIPTION,
   manifest: "/manifest.json",
-  themeColor: "#111827",
+  themeColor: "#0C0C0C",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: APP_DEFAULT_TITLE,
-    // startUpImage: [],
   },
   formatDetection: {
     telephone: true,
@@ -64,13 +60,13 @@ export default function RootLayout({
   return (
     <html
       suppressHydrationWarning
-      className={`${popins.className} ${roboto.variable}`}
+      className={inter.variable}
       lang="en"
     >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="antialiased bg-gradient-to-b dark:bg-gradient-to-b dark:from-gray-900 dark:text-slate-50 dark:to-gray-800 from-slate-100 min-h-screen text-slate-900 to-white">
+      <body className={`${inter.className} antialiased`}>
         <ThemeProviders>
           <>
             <Header />

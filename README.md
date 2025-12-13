@@ -1,34 +1,133 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Ikhsanuddin Portfolio - Senior Software Engineer
+
+A modern, dark-themed portfolio website built with Next.js 16, React 19, TypeScript, and Tailwind CSS. Inspired by the Apex template design with full PWA support.
+
+## Features
+
+- ✨ Modern dark UI with smooth animations and gradient effects
+- 📱 Fully responsive single-page design
+- 🎨 Tailwind CSS for styling
+- 📦 Next.js 16.0.10 with React 19
+- 🔄 PWA support with offline functionality
+- 🐳 Docker support with watch mode
+- 🚀 Optimized performance
+
+## Tech Stack
+
+- **Framework**: Next.js 16.0.10
+- **UI Library**: React 19
+- **Language**: TypeScript 5.7
+- **Styling**: Tailwind CSS 3.4
+- **Icons**: React Icons
+- **PWA**: next-pwa
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 20.x (LTS)
+- npm
+
+### Installation
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+npm install --legacy-peer-deps
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Docker Setup
 
-## Learn More
+### Using Docker Compose with Watch Mode
 
-To learn more about Next.js, take a look at the following resources:
+Start the development server with hot reload:
+```bash
+docker compose watch
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This will:
+- Use Node.js 20 Alpine image
+- Sync your code changes automatically
+- Run the dev server on port 3000
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Alternative standard docker compose:
+```bash
+docker compose up
+```
 
-## Deploy on Vercel
+### Build for Production
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+docker build -t ikhsanuddin-portfolio .
+docker run -p 3000:3000 ikhsanuddin-portfolio
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Project Structure
+
+```
+├── src/
+│   ├── app/
+│   │   ├── page.tsx           # Main homepage with new design
+│   │   ├── layout.tsx         # Root layout
+│   │   ├── globals.css        # Global styles
+│   │   └── ~offline/          # PWA offline page
+│   └── components/            # Reusable components
+├── public/
+│   ├── manifest.json          # PWA manifest
+│   └── grid.svg               # Background pattern
+├── docker-compose.yml         # Docker compose config
+├── Dockerfile                 # Docker image config
+└── next.config.js             # Next.js config with PWA
+```
+
+## Key Sections
+
+1. **Hero Section** - Introduction with animated background and navigation dots
+2. **Summary** - Professional overview
+3. **Experience** - Work history with timeline visualization
+4. **Skills & Tools** - Technical expertise in organized grid
+5. **Contact** - Get in touch section with download CV button
+
+## PWA Features
+
+- ✅ Offline support
+- ✅ Install prompt
+- ✅ Service worker caching
+- ✅ Offline fallback page
+- ✅ Mobile app-like experience
+
+## Build & Deploy
+
+### Production Build
+
+```bash
+npm run build
+npm start
+```
+
+### Deploy to Netlify
+
+The project includes `netlify.toml` configuration. Simply connect your repository to Netlify for automatic deployments.
+
+## Customization
+
+Update the content in `src/app/page.tsx` with your:
+- Name and title
+- Professional summary
+- Work experience
+- Skills and tools
+- Contact information
+
+## License
+
+All rights reserved © 2025 Ikhsanuddin
+
+---
+
+Built with ❤️ using Next.js and Tailwind CSS

@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: dev
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./public
+          target: /app/public
+        - action: sync
+          path: ./contentlayer.config.ts
+          target: /app/contentlayer.config.ts
+        - action: sync
+          path: ./next.config.js
+          target: /app/next.config.js
+        - action: sync
+          path: ./tailwind.config.js
+          target: /app/tailwind.config.js
+        - action: sync
+          path: ./tsconfig.json
+          target: /app/tsconfig.json
+        - action: rebuild
+          path: ./package.json
+          target: /app/package.json
