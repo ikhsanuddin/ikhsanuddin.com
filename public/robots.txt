@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /~offline
 
-sitemap: https://ikhsanuddin.com/sitemap.xml
+Sitemap: https://ikhsanuddin.com/sitemap-index.xml

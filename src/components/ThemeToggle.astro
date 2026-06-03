@@ -1,0 +1,16 @@
+---
+// Dark-mode switch (replaces next-themes + @headlessui Switch).
+// State handling lives in a shared inline script in Header.astro.
+---
+
+<button
+  type="button"
+  role="switch"
+  aria-checked="false"
+  aria-label="Dark Mode"
+  class="theme-toggle relative inline-flex h-6 w-11 items-center rounded-full bg-orange-300 transition-colors aria-checked:bg-orange-600"
+>
+  <span
+    class="theme-toggle-thumb inline-block h-4 w-4 translate-x-1 transform rounded-full bg-white transition"
+  ></span>
+</button>

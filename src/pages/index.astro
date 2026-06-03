@@ -1,0 +1,398 @@
+---
+import Base from "@/layouts/Base.astro";
+import Icon from "@/components/icons/Icon.astro";
+
+const experiences = [
+  {
+    period: "February 2026 - Present",
+    title: "Full-Stack Engineer",
+    company: "Boon (getboon.ai), US (Remote)",
+    bullets: [
+      "Build AI agent and LLM-powered features automating preconstruction workflows, from document analysis to bid generation.",
+      "Ship full-stack product features across a React/Next.js frontend and Node.js backend for enterprise construction teams.",
+      "Built interactive blueprint visualization with 3D canvas rendering, plus offline-first capabilities using service workers and IndexedDB.",
+      "Integrate enterprise systems (ERP, SSO) into the platform.",
+    ],
+  },
+  {
+    period: "September 2023 - December 2025",
+    title: "Full-Stack Developer",
+    company: "Undercurrent Capital Pte Ltd, Singapore (Remote)",
+    bullets: [
+      "Developed and integrated applications using Telegram API and Web3 Wallet Service.",
+      "Engineered solutions for a Decentralized Exchange utilizing Typescript and Go.",
+      "Collaborated on game development projects with Phaser Js, enhancing user engagement.",
+    ],
+  },
+  {
+    period: "April 2022 - April 2023",
+    title: "Technical Lead",
+    company: "Twospaces.id, Tangerang, Indonesia",
+    bullets: [
+      "Project Planning, Infrastructure Setup, Manage Software Development",
+      "Mentoring & Coaching Junior Co-Workers",
+      "Deployment & Monitoring",
+      "Software Development",
+    ],
+  },
+  {
+    period: "March 2020 - April 2022",
+    title: "Technical Lead",
+    company: "Tekno Kreasi Nyata, Tangerang, Indonesia",
+    bullets: [
+      "Creating Collaborative environment that promote teamwork and collaboration",
+      "Giving advice & solution in technical issue",
+      "Guide newcomer with current state infrastructure & development",
+      "Analyze software and giving solution for improvement",
+    ],
+  },
+  {
+    period: "November 2018 - February 2020",
+    title: "Senior Frontend Developer",
+    company: "Tekno Kreasi Nyata, Tangerang, Indonesia",
+    bullets: [
+      "Manage Frontend team to deliver lightweight & optimized software solution",
+      "Creating Frontend Framework that meet the business needs",
+    ],
+  },
+  {
+    period: "June 2017 - October 2018",
+    title: "Frontend Developer",
+    company: "Yamisok, Tangerang, Indonesia",
+    bullets: [
+      "Transforming User Interface Design into Yamisok's Website Interface.",
+      "Using Firebase, Vue.js and Laravel.",
+    ],
+  },
+];
+
+const skillGroups = [
+  {
+    title: "Technical Lead",
+    titleClass: "text-light-primary dark:text-dark-secondary",
+    items: [
+      "End-to-end delivery and technical decision-making",
+      "Design and implement scalable, maintainable architectures for complex software systems",
+      "Collaborate with cross-functional teams to drive project success",
+      "Stay up-to-date with industry trends and best practices, driving innovation and improvement",
+    ],
+    tools: [
+      "Jira",
+      "Confluence",
+      "Linear",
+      "Miro",
+      "Notion",
+      "Figma",
+      "Slack",
+      "System Design",
+    ],
+    toolClass:
+      "bg-light-primary/10 dark:bg-dark-secondary/10 border-light-primary/20 dark:border-dark-secondary/20 hover:bg-light-primary/20 dark:hover:bg-dark-secondary/20",
+  },
+  {
+    title: "Senior Developer (Frontend & Backend)",
+    titleClass: "text-light-secondary dark:text-dark-accent",
+    items: [
+      "Mentor and guide junior developers, fostering growth and technical excellence",
+      "Contribute to technical strategy, providing thought leadership and vision",
+      "Develop and maintain expertise in latest-cutting-edge technologies",
+      "Ensuring code standards, providing technical guidance, and conducting thorough code reviews",
+    ],
+    tools: [
+      "React / Next.js",
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "Go",
+      "GraphQL",
+      "REST API",
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "Jest / Vitest",
+      "Git",
+    ],
+    toolClass:
+      "bg-light-secondary/10 dark:bg-dark-accent/10 border-light-secondary/20 dark:border-dark-accent/20 hover:bg-light-secondary/20 dark:hover:bg-dark-accent/20",
+  },
+  {
+    title: "DevOps",
+    titleClass: "text-light-accent dark:text-dark-accent",
+    items: [
+      "Manage infrastructure with code (IaC)",
+      "Monitor and log system performance",
+      "Work with cloud and containers (Docker, Kubernetes)",
+      "Set up automated testing and deployment (CI/CD)",
+    ],
+    tools: [
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Ansible",
+      "AWS",
+      "GitHub Actions",
+      "Jenkins",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch",
+      "Nginx",
+      "Linux",
+    ],
+    toolClass:
+      "bg-light-accent/10 dark:bg-dark-accent/10 border-light-accent/20 dark:border-dark-accent/20 hover:bg-light-accent/20 dark:hover:bg-dark-accent/20",
+  },
+];
+---
+
+<Base>
+  <main
+    class="min-h-screen bg-light-bg dark:bg-dark-bg text-light-accent dark:text-white"
+  >
+    <!-- Hero Section -->
+    <section
+      class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-light-primary/20 via-light-secondary/20 to-light-accent/20 dark:from-dark-primary/20 dark:via-dark-secondary/20 dark:to-dark-accent/20"
+      >
+      </div>
+      <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
+
+      <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <div
+          class="inline-block mb-6 px-4 py-2 bg-light-primary/20 dark:bg-dark-accent/20 border border-light-secondary/30 dark:border-dark-accent/30 rounded-full text-sm font-medium"
+        >
+          Open to work
+        </div>
+        <div
+          class="mb-4 text-sm font-medium tracking-widest text-light-secondary dark:text-dark-accent uppercase"
+        >
+          Senior Full-Stack Engineer
+        </div>
+        <h1
+          class="text-4xl sm:text-6xl md:text-8xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-light-primary via-light-secondary to-light-accent dark:from-dark-primary dark:via-dark-secondary dark:to-dark-accent uppercase"
+        >
+          Ikhsanuddin
+        </h1>
+
+        <div class="flex flex-wrap justify-center gap-6 mb-12 text-sm">
+          <a
+            href="mailto:mail.ikhsanuddin@gmail.com"
+            class="flex items-center gap-2 hover:text-light-secondary dark:hover:text-dark-accent transition-colors"
+          >
+            <Icon name="mail" /> mail.ikhsanuddin@gmail.com
+          </a>
+          <a
+            href="https://linkedin.com/in/ikhsanuddin"
+            class="flex items-center gap-2 hover:text-light-secondary dark:hover:text-dark-accent transition-colors"
+          >
+            <Icon name="linkedin" /> linkedin.com/in/ikhsanuddin
+          </a>
+          <a
+            href="https://github.com/ikhsanuddin"
+            class="flex items-center gap-2 hover:text-light-secondary dark:hover:text-dark-accent transition-colors"
+          >
+            <Icon name="github" /> github.com/ikhsanuddin
+          </a>
+          <span class="flex items-center gap-2">
+            <Icon name="map-pin" /> Remote, Worldwide
+          </span>
+        </div>
+      </div>
+
+      <div
+        class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+      >
+        <div
+          class="w-6 h-10 border-2 border-light-accent/30 dark:border-white/30 rounded-full p-1"
+        >
+          <div
+            class="w-1.5 h-2 bg-light-accent/50 dark:bg-white/50 rounded-full mx-auto animate-pulse"
+          >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary Section -->
+    <section id="section-summary" class="min-h-screen flex items-center py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 class="text-5xl font-bold mb-8">Summary</h2>
+            <div
+              class="space-y-6 text-light-accent dark:text-gray-300 leading-relaxed"
+            >
+              <p>
+                Full-stack engineer with 9 years of experience shipping web
+                apps, decentralized exchanges, and cloud infrastructure —
+                currently building AI-powered preconstruction tools at Boon,
+                fully remote.
+              </p>
+              <p>
+                I work across React/Next.js, TypeScript, Node, and Go, with
+                production experience running AWS and Kubernetes. I&apos;m
+                comfortable owning a feature end-to-end: system design,
+                implementation, deployment, and monitoring.
+              </p>
+              <p>
+                Previously I led engineering teams as a Technical Lead, built a
+                Telegram-based trading app integrated with Web3 wallets, and
+                engineered services for a decentralized exchange. Open to
+                remote roles with US teams.
+              </p>
+            </div>
+          </div>
+          <div class="relative">
+            <div
+              class="aspect-square rounded-2xl bg-gradient-to-br from-light-primary/20 to-light-secondary/20 dark:from-dark-primary/20 dark:to-dark-secondary/20 backdrop-blur-sm border border-light-accent/10 dark:border-white/10"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work Experience Section -->
+    <section
+      id="section-experience"
+      class="min-h-screen py-20 px-6 bg-light-bg dark:bg-[#050505]"
+    >
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-5xl font-bold mb-16">Experience</h2>
+
+        <div class="space-y-16">
+          {
+            experiences.map((exp) => (
+              <div class="relative pl-8 border-l-2 border-light-secondary/30 dark:border-dark-secondary/30">
+                <div class="absolute left-[-9px] top-0 w-4 h-4 bg-light-secondary dark:bg-dark-accent rounded-full" />
+                <div class="mb-2 text-sm text-light-secondary dark:text-dark-accent font-medium">
+                  {exp.period}
+                </div>
+                <h3 class="text-2xl font-bold mb-2">{exp.title}</h3>
+                <div class="mb-6 text-light-accent/70 dark:text-gray-400">
+                  {exp.company}
+                </div>
+                <ul class="space-y-2 text-light-accent dark:text-gray-300">
+                  {exp.bullets.map((bullet) => (
+                    <li class="flex gap-2">
+                      <span class="text-light-secondary dark:text-dark-accent mt-1">
+                        →
+                      </span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="section-skills" class="min-h-screen py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-5xl font-bold mb-16">Skills & Tools</h2>
+
+        <div class="space-y-12">
+          {
+            skillGroups.map((group) => (
+              <div class="p-8 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl">
+                <h3 class={`text-3xl font-bold mb-6 ${group.titleClass}`}>
+                  {group.title}
+                </h3>
+                <ul class="space-y-3 text-light-accent dark:text-gray-300 mb-6">
+                  {group.items.map((item) => (
+                    <li class="flex gap-3">
+                      <span class="text-light-secondary dark:text-dark-accent mt-1">
+                        →
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+                  {group.tools.map((tool) => (
+                    <div
+                      class={`p-3 border rounded-lg text-sm text-center transition-colors ${group.toolClass}`}
+                    >
+                      {tool}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section
+      id="section-contact"
+      class="min-h-screen flex items-center py-20 px-6 bg-light-bg dark:bg-[#050505]"
+    >
+      <div class="max-w-4xl mx-auto text-center w-full">
+        <h2 class="text-5xl font-bold mb-12">Let&apos;s Connect</h2>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <a
+            href="mailto:mail.ikhsanuddin@gmail.com"
+            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-all hover:scale-105"
+          >
+            <Icon
+              name="mail"
+              class="text-3xl mb-4 mx-auto text-light-secondary dark:text-dark-accent"
+            />
+            <div class="font-bold mb-2">Email</div>
+            <div class="text-light-accent/70 dark:text-gray-400 text-sm">
+              mail.ikhsanuddin@gmail.com
+            </div>
+          </a>
+
+          <a
+            href="https://linkedin.com/in/ikhsanuddin"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-all hover:scale-105"
+          >
+            <Icon
+              name="linkedin"
+              class="text-3xl mb-4 mx-auto text-light-secondary dark:text-dark-accent"
+            />
+            <div class="font-bold mb-2">LinkedIn</div>
+            <div class="text-light-accent/70 dark:text-gray-400 text-sm">
+              linkedin.com/in/ikhsanuddin
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/ikhsanuddin"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-all hover:scale-105"
+          >
+            <Icon
+              name="github"
+              class="text-3xl mb-4 mx-auto text-light-secondary dark:text-dark-accent"
+            />
+            <div class="font-bold mb-2">GitHub</div>
+            <div class="text-light-accent/70 dark:text-gray-400 text-sm">
+              github.com/ikhsanuddin
+            </div>
+          </a>
+        </div>
+
+        <a
+          href="/Ikhsanuddin - Senior Software Engineer - 2026.pdf"
+          download
+          class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-light-primary to-light-secondary dark:from-dark-secondary dark:to-dark-accent hover:from-light-secondary hover:to-light-accent dark:hover:from-dark-primary dark:hover:to-dark-secondary rounded-full font-bold transition-all hover:scale-105 text-white"
+        >
+          <Icon name="download" class="text-xl" />
+          Download CV
+        </a>
+      </div>
+    </section>
+  </main>
+</Base>

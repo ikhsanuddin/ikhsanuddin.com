@@ -1,0 +1,96 @@
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Dark theme colors */
+  --color-dark-bg: #0c0c0c;
+  --color-dark-primary: #481e14;
+  --color-dark-secondary: #9b3922;
+  --color-dark-accent: #f2613f;
+
+  /* Light theme colors */
+  --color-light-bg: #f4e7e1;
+  --color-light-primary: #ff9b45;
+  --color-light-secondary: #d5451b;
+  --color-light-accent: #521c0d;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-light-bg text-light-accent font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  .dark body {
+    @apply bg-dark-bg text-white;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Header background once the page is scrolled (toggled from Header.astro) */
+.header-bg {
+  @apply bg-transparent transition-colors duration-300;
+}
+
+.header-bg.scrolled {
+  @apply bg-gradient-to-br from-light-primary/20 via-light-secondary/20 to-light-accent/20 dark:from-dark-primary/20 dark:via-dark-secondary/20 dark:to-dark-accent/20 backdrop-blur-md shadow-lg;
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-light-bg;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-dark-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-light-secondary;
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-dark-secondary;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-light-accent;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-dark-accent;
+}

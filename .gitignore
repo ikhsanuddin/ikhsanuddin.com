@@ -1,52 +1,27 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+node_modules/
 
-# testing
-/coverage
+# build output
+dist/
 
-# next.js
-/.next/
-/out/
+# generated types
+.astro/
 
-# production
-/build
+# environment variables
+.env
+.env.production
+.env*.local
 
 # misc
 .DS_Store
 *.pem
-
-# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# contentlayer
-.contentlayer
-
 # Local Netlify folder
 .netlify
 
-# next-pwa
-/public/sw.js
-/public/workbox-*.js
-/public/worker-*.js
-/public/fallback-*.js
-/public/precache.*.*.js.map
-/public/sw.js.map
-/public/workbox-*.js.map
-/public/worker-*.js.map
-/public/fallback-*.js
+# IDE
+.vscode/
+.idea/

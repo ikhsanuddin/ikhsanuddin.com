@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import PostCard from "@/components/PostCard.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const categories = [
+    ...new Set(posts.map((post) => post.data.category.toLowerCase())),
+  ];
+  return categories.map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+
+const posts = (await getCollection("blog"))
+  .filter((post) => post.data.category.toLowerCase() === category)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base
+  title="Blog Categories - Ikhsanuddin Syamsuri"
+  description="Ikhsanuddin's programming journey"
+>
+  <main class="py-24 sm:py-32 min-h-screen">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h2
+          class="text-3xl font-bold tracking-tight text-gray-900 dark:text-neutral-100 sm:text-4xl"
+        >
+          #{category}
+        </h2>
+        <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-neutral-400">
+          The post related to each other
+        </p>
+      </div>
+      <div
+        class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+      >
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+    </div>
+  </main>
+</Base>

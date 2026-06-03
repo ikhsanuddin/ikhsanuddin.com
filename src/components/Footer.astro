@@ -1,0 +1,55 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="relative bg-gradient-to-r from-slate-50 dark:from-gray-900 backdrop-blur-md text-gray-500"
+>
+  <div
+    class="mx-auto max-w-7xl p-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center"
+  >
+    <div class="flex align-center mx-auto lg:ml-0 lg:order-1">
+      <small class="text-sm">
+        Built with{" "}
+        <a
+          href="https://astro.build"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-light-secondary dark:hover:text-dark-accent transition-colors"
+        >
+          Astro
+        </a>
+        {" · "}
+        <a
+          href="https://tailwindcss.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-light-secondary dark:hover:text-dark-accent transition-colors"
+        >
+          Tailwind
+        </a>
+        {" · "}
+        <a
+          href="https://mdxjs.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-light-secondary dark:hover:text-dark-accent transition-colors"
+        >
+          MDX
+        </a>
+      </small>
+    </div>
+    <ul class="text-sm lg:text-right lg:order-3 mx-auto lg:ml-auto flex">
+      <li><a class="mr-2" href="/blog">Blog</a></li>
+      <li><a class="mr-2" href="/about/ikhsanuddin">About</a></li>
+      <li><a class="mr-2" href="/projects">Projects</a></li>
+      <li><a class="mr-2" href="/sitemap-index.xml">Sitemap</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+    <p
+      class="text-center mx-auto text-gray-500 lg:order-2 md:col-span-2 lg:col-span-1"
+    >
+      Copyright © {year} Ikhsanuddin
+    </p>
+  </div>
+</footer>
