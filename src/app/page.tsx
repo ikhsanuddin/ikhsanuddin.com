@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FiMail, FiMapPin, FiLinkedin, FiDownload } from "react-icons/fi";
+import { FiMail, FiMapPin, FiLinkedin, FiGithub, FiDownload } from "react-icons/fi";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("summary");
@@ -39,7 +39,7 @@ export default function Home() {
             Open to work
           </div>
           <div className="mb-4 text-sm font-medium tracking-widest text-light-secondary dark:text-dark-accent uppercase">
-            Senior Software Engineer
+            Senior Full-Stack Engineer
           </div>
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-light-primary via-light-secondary to-light-accent dark:from-dark-primary dark:via-dark-secondary dark:to-dark-accent uppercase">
             Ikhsanuddin
@@ -52,7 +52,9 @@ export default function Home() {
             <a href="https://linkedin.com/in/ikhsanuddin" className="flex items-center gap-2 hover:text-light-secondary dark:hover:text-dark-accent transition-colors">
               <FiLinkedin /> linkedin.com/in/ikhsanuddin
             </a>
-            
+            <a href="https://github.com/ikhsanuddin" className="flex items-center gap-2 hover:text-light-secondary dark:hover:text-dark-accent transition-colors">
+              <FiGithub /> github.com/ikhsanuddin
+            </a>
             <span className="flex items-center gap-2">
               <FiMapPin /> Remote, Worldwide
             </span>
@@ -74,22 +76,19 @@ export default function Home() {
               <h2 className="text-5xl font-bold mb-8">Summary</h2>
               <div className="space-y-6 text-light-accent dark:text-gray-300 leading-relaxed">
                 <p>
-                  I am an experienced and detail-oriented Senior Software Engineer dedicated to
-                  creating robust and scalable digital solutions. Over the years, I have honed
-                  my skills in full-stack development, cloud architecture, and team leadership,
-                  always striving to balance technical excellence with business objectives.
+                  Full-stack engineer with 9 years of experience shipping web apps, decentralized
+                  exchanges, and cloud infrastructure — currently building AI-powered preconstruction
+                  tools at Boon, fully remote.
                 </p>
                 <p>
-                  My passion lies in understanding complex problems and crafting elegant solutions
-                  that are both performant and maintainable. I have collaborated with diverse teams,
-                  including designers, product managers, and stakeholders, to bring innovative
-                  concepts to life.
+                  I work across React/Next.js, TypeScript, Node, and Go, with production experience
+                  running AWS and Kubernetes. I&apos;m comfortable owning a feature end-to-end:
+                  system design, implementation, deployment, and monitoring.
                 </p>
                 <p>
-                  Driven by curiosity and a commitment to continuous learning, I regularly explore
-                  new technologies and methodologies to enhance my craft. Whether working on
-                  microservices, web applications, or mobile interfaces, I am committed to
-                  delivering high-quality results that make a meaningful impact.
+                  Previously I led engineering teams as a Technical Lead, built a Telegram-based
+                  trading app integrated with Web3 wallets, and engineered services for a
+                  decentralized exchange. Open to remote roles with US teams.
                 </p>
               </div>
             </div>
@@ -106,11 +105,37 @@ export default function Home() {
           <h2 className="text-5xl font-bold mb-16">Experience</h2>
           
           <div className="space-y-16">
+            {/* Experience - Boon (current) */}
+            <div className="relative pl-8 border-l-2 border-light-secondary/30 dark:border-dark-secondary/30">
+              <div className="absolute left-[-9px] top-0 w-4 h-4 bg-light-secondary dark:bg-dark-accent rounded-full"></div>
+              <div className="mb-2 text-sm text-light-secondary dark:text-dark-accent font-medium">February 2026 - Present</div>
+              <h3 className="text-2xl font-bold mb-2">Full-Stack Engineer</h3>
+              <div className="mb-6 text-light-accent/70 dark:text-gray-400">Boon (getboon.ai), US (Remote)</div>
+              <ul className="space-y-2 text-light-accent dark:text-gray-300">
+                <li className="flex gap-2">
+                  <span className="text-light-secondary dark:text-dark-accent mt-1">→</span>
+                  <span>Build AI agent and LLM-powered features automating preconstruction workflows, from document analysis to bid generation.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-light-secondary dark:text-dark-accent mt-1">→</span>
+                  <span>Ship full-stack product features across a React/Next.js frontend and Node.js backend for enterprise construction teams.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-light-secondary dark:text-dark-accent mt-1">→</span>
+                  <span>Built interactive blueprint visualization with 3D canvas rendering, plus offline-first capabilities using service workers and IndexedDB.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-light-secondary dark:text-dark-accent mt-1">→</span>
+                  <span>Integrate enterprise systems (ERP, SSO) into the platform.</span>
+                </li>
+              </ul>
+            </div>
+
             {/* Experience 1 - Undercurrent Capital */}
             <div className="relative pl-8 border-l-2 border-light-secondary/30 dark:border-dark-secondary/30">
               <div className="absolute left-[-9px] top-0 w-4 h-4 bg-light-secondary dark:bg-dark-accent rounded-full"></div>
               <div className="mb-2 text-sm text-light-secondary dark:text-dark-accent font-medium">September 2023 - December 2025</div>
-              <h3 className="text-2xl font-bold mb-2">Full-stack Dev</h3>
+              <h3 className="text-2xl font-bold mb-2">Full-Stack Developer</h3>
               <div className="mb-6 text-light-accent/70 dark:text-gray-400">Undercurrent Capital Pte Ltd, Singapore (Remote)</div>
               <ul className="space-y-2 text-light-accent dark:text-gray-300">
                 <li className="flex gap-2">
@@ -184,7 +209,7 @@ export default function Home() {
             <div className="relative pl-8 border-l-2 border-light-secondary/30 dark:border-dark-secondary/30">
               <div className="absolute left-[-9px] top-0 w-4 h-4 bg-light-secondary dark:bg-dark-accent rounded-full"></div>
               <div className="mb-2 text-sm text-light-secondary dark:text-dark-accent font-medium">November 2018 - February 2020</div>
-              <h3 className="text-2xl font-bold mb-2">Senior Frontend Dev</h3>
+              <h3 className="text-2xl font-bold mb-2">Senior Frontend Developer</h3>
               <div className="mb-6 text-light-accent/70 dark:text-gray-400">Tekno Kreasi Nyata, Tangerang, Indonesia</div>
               <ul className="space-y-2 text-light-accent dark:text-gray-300">
                 <li className="flex gap-2">
@@ -202,7 +227,7 @@ export default function Home() {
             <div className="relative pl-8 border-l-2 border-light-secondary/30 dark:border-dark-secondary/30">
               <div className="absolute left-[-9px] top-0 w-4 h-4 bg-light-secondary dark:bg-dark-accent rounded-full"></div>
               <div className="mb-2 text-sm text-light-secondary dark:text-dark-accent font-medium">June 2017 - October 2018</div>
-              <h3 className="text-2xl font-bold mb-2">Frontend Dev</h3>
+              <h3 className="text-2xl font-bold mb-2">Frontend Developer</h3>
               <div className="mb-6 text-light-accent/70 dark:text-gray-400">Yamisok, Tangerang, Indonesia</div>
               <ul className="space-y-2 text-light-accent dark:text-gray-300">
                 <li className="flex gap-2">
@@ -367,7 +392,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center w-full">
           <h2 className="text-5xl font-bold mb-12">Let&apos;s Connect</h2>
           
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
             <a
               href="mailto:mail.ikhsanuddin@gmail.com"
               className="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-all hover:scale-105"
@@ -387,10 +412,21 @@ export default function Home() {
               <div className="font-bold mb-2">LinkedIn</div>
               <div className="text-light-accent/70 dark:text-gray-400 text-sm">linkedin.com/in/ikhsanuddin</div>
             </a>
+
+            <a
+              href="https://github.com/ikhsanuddin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-all hover:scale-105"
+            >
+              <FiGithub className="text-3xl mb-4 mx-auto text-light-secondary dark:text-dark-accent" />
+              <div className="font-bold mb-2">GitHub</div>
+              <div className="text-light-accent/70 dark:text-gray-400 text-sm">github.com/ikhsanuddin</div>
+            </a>
           </div>
 
           <a
-            href="/Ikhsanuddin - Senior Sofware Engineer - 2026.pdf"
+            href="/Ikhsanuddin - Senior Software Engineer - 2026.pdf"
             download
             className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-light-primary to-light-secondary dark:from-dark-secondary dark:to-dark-accent hover:from-light-secondary hover:to-light-accent dark:hover:from-dark-primary dark:hover:to-dark-secondary rounded-full font-bold transition-all hover:scale-105 text-white"
           >

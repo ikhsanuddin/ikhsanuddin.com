@@ -42,7 +42,7 @@ export default function Footer() {
           </li>
         </ul>
         <p className="text-center mx-auto text-gray-500 lg:order-2 md:col-span-2 lg:col-span-1">
-          Copyright © 2023
+          Copyright © {new Date().getFullYear()} Ikhsanuddin
         </p>
       </div>
     </footer>

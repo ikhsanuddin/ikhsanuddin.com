@@ -11,9 +11,9 @@ const inter = Inter({
 });
 
 const APP_NAME = "Ikhsanuddin";
-const APP_DEFAULT_TITLE = "Ikhsanuddin - Senior Software Engineer";
+const APP_DEFAULT_TITLE = "Ikhsanuddin - Senior Full-Stack Engineer";
 const APP_TITLE_TEMPLATE = "%s - Ikhsanuddin";
-const APP_DESCRIPTION = "Senior Software Engineer specializing in React.js, Node.js, TypeScript, and Cloud Architecture";
+const APP_DESCRIPTION = "Senior Full-Stack Engineer — React/Next.js, Node, TypeScript, Go, AWS & Kubernetes. Open to remote roles with US teams.";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ikhsanuddin.com'),

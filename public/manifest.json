@@ -1,6 +1,6 @@
 {
     "short_name": "Ikhsanuddin",
-    "name": "Ikhsanuddin - Senior Software Engineer",
+    "name": "Ikhsanuddin - Senior Full-Stack Engineer",
     "icons": [
       {
         "src": "favicon.ico",
@@ -25,6 +25,6 @@
     "theme_color": "#0a0a0a",
     "background_color": "#0a0a0a",
     "orientation": "portrait",
-    "description": "Senior Software Engineer specializing in React.js, Node.js, TypeScript, and Cloud Architecture"
+    "description": "Senior Full-Stack Engineer — React/Next.js, Node, TypeScript, Go, AWS & Kubernetes. Open to remote roles with US teams."
   }
   
