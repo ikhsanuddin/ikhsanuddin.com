@@ -1,0 +1,24 @@
+---
+// Pointer-reactive dot grid background, rendered with PixiJS.
+// Falls back to the static grid.svg pattern when JS, WebGL, or motion
+// is unavailable. The caller controls position and size via `class`.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={className} data-dot-grid aria-hidden="true">
+  <div
+    class="absolute inset-0 bg-[url('/grid.svg')] opacity-20"
+    data-dot-grid-fallback
+  >
+  </div>
+</div>
+
+<script>
+  import { mountDotGrids } from "@/scripts/dot-grid";
+
+  mountDotGrids();
+</script>

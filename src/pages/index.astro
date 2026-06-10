@@ -1,5 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
+import DotGrid from "@/components/DotGrid.astro";
 import Icon from "@/components/icons/Icon.astro";
 
 const experiences = [
@@ -156,7 +157,7 @@ const skillGroups = [
         class="absolute inset-0 bg-gradient-to-br from-light-primary/20 via-light-secondary/20 to-light-accent/20 dark:from-dark-primary/20 dark:via-dark-secondary/20 dark:to-dark-accent/20"
       >
       </div>
-      <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
+      <DotGrid class="absolute inset-0" />
 
       <div class="relative z-10 max-w-4xl mx-auto text-center">
         <div

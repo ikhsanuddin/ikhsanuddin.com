@@ -9,6 +9,20 @@ interface Props {
 const { post } = Astro.props;
 const { title, date, category, imageUrl, imageClassName } = post.data;
 const url = `/blog/${post.id}`;
+
+// Plain-text excerpt: drop MDX imports/exports, code fences, tags, and
+// markdown markers so the card shows prose instead of source code. The card
+// clamps to two lines, so a few hundred characters is plenty.
+const excerpt = (post.body ?? "")
+  .replace(/^(import|export)\s.*$/gm, "")
+  .replace(/```[\s\S]*?(```|$)/g, "")
+  .replace(/<[^>]*>/g, "")
+  .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+  .replace(/^#{1,6}\s+/gm, "")
+  .replace(/[*_`]/g, "")
+  .replace(/\s+/g, " ")
+  .trim()
+  .slice(0, 280);
 ---
 
 <article class="flex max-w-xl flex-col items-start justify-between">
@@ -46,7 +60,7 @@ const url = `/blog/${post.id}`;
       style="word-break: break-word"
       class="mt-3 line-clamp-2 text-sm leading-6 text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-50 ease-in-out duration-300 break-words"
     >
-      {post.body}
+      {excerpt}
     </div>
   </div>
   <div class="relative mt-4 flex items-center gap-x-4">

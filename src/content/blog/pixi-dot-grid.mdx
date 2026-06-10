@@ -1,0 +1,334 @@
+---
+title: Building a Living Dot Grid with PixiJS and Astro
+date: 2026-06-11
+category: Canvas
+imageUrl: /blog/pixi-dot-grid.jpg
+---
+
+import DotGrid from "@/components/DotGrid.astro";
+
+The hero section of this site used to have a static SVG grid in the background. It worked, but it just sat there. We replaced it with a field of dots (a couple thousand of them, depending on your viewport) that drift slowly, scatter away from the cursor, and spring back into place. The whole grid renders in a single WebGL draw call with PixiJS v8, and the site stays plain Astro with no framework islands.
+
+This post walks through the build. The effect below is the exact same component the homepage uses.
+
+### Result
+
+<DotGrid class="not-prose relative h-96 overflow-hidden rounded-2xl border border-light-accent/10 dark:border-white/10 bg-gradient-to-br from-light-primary/20 via-light-secondary/20 to-light-accent/20 dark:from-dark-primary/20 dark:via-dark-secondary/20 dark:to-dark-accent/20" />
+
+Move your cursor over the box (or drag a finger across it). Toggling the site theme recolors the dots too.
+
+---
+
+## Why PixiJS fits Astro well
+
+Astro ships zero JavaScript by default, and we wanted to keep it that way. An Astro component can carry its own `<script>` tag, which Vite bundles as a regular ES module. That is all Pixi needs: it is a plain browser library, there is no SSR story to fight with.
+
+Two details make the pairing cheap:
+
+- The component's script is included once per page no matter how many times the component appears, so one script can mount every instance.
+- We load Pixi itself with a dynamic `import()`. Vite splits it into its own chunk, and the browser only downloads it when the visitor will actually see the animation. Someone with reduced motion enabled never pays for the library at all.
+
+---
+
+## The component shell
+
+The markup side is small. A host element marked with a data attribute, and inside it the old static grid as a fallback layer:
+
+```astro
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={className} data-dot-grid aria-hidden="true">
+  <div
+    class="absolute inset-0 bg-[url('/grid.svg')] opacity-20"
+    data-dot-grid-fallback
+  >
+  </div>
+</div>
+
+<script>
+  import { mountDotGrids } from "@/scripts/dot-grid";
+
+  mountDotGrids();
+</script>
+```
+
+The caller decides position and size. On the homepage it is `<DotGrid class="absolute inset-0" />` inside the hero section. In this post it sits in a fixed-height box.
+
+The fallback layer is the point of the design: if JavaScript is disabled, WebGL is missing, or the user prefers reduced motion, the static grid stays visible and nothing else happens. When Pixi boots successfully, the canvas fades in and the fallback fades out.
+
+---
+
+## Booting Pixi without breaking anything
+
+PixiJS v8 changed initialization: the `Application` constructor takes no options anymore, and `init()` is async. Two checks run before a single byte of Pixi is downloaded (do any hosts exist, does the visitor prefer reduced motion), and a third one, WebGL support, runs right after the import and bails before any canvas is created:
+
+```ts
+export function mountDotGrids(): void {
+  const hosts = document.querySelectorAll<HTMLElement>("[data-dot-grid]");
+  if (hosts.length === 0) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reducedMotion.matches) return;
+
+  const start = (): void => {
+    void (async () => {
+      let pixi: Pixi;
+      try {
+        pixi = await import("./pixi-subset");
+      } catch {
+        return;
+      }
+      if (!pixi.isWebGLSupported(true)) return;
+      for (const host of hosts) {
+        mount(pixi, host, reducedMotion).catch(() => {
+          // Init failed: keep the static fallback.
+        });
+      }
+    })();
+  };
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(start, { timeout: 2000 });
+  } else {
+    setTimeout(start, 300);
+  }
+}
+```
+
+Three details here are easy to miss:
+
+- The async IIFE is deliberate. Top-level `await` in a bundled module has bitten people in production Vite builds, so we avoid it entirely.
+- `requestIdleCallback` delays the whole thing until the browser has nothing better to do, so the Pixi download and WebGL setup never compete with the page's own loading. The fade-in hides the late start.
+- `isWebGLSupported(true)` is the strict form: it also rejects software rasterizers. A decorative background crawling along at 5 fps on a machine without GPU acceleration is worse than the static fallback.
+
+Notice the import target is not `"pixi.js"`. Dynamic-importing the package directly gives you the whole library in one chunk, 836 kB minified in our build. Importing a tiny re-export module instead lets Rollup tree-shake everything we do not use:
+
+```ts
+// pixi-subset.ts
+export {
+  Application,
+  Color,
+  Graphics,
+  Particle,
+  ParticleContainer,
+  Rectangle,
+  isWebGLSupported,
+} from "pixi.js";
+```
+
+That one change cut the effect's JavaScript roughly in half, and Pixi's own internal code splitting keeps going from there: with `preference: "webgl"` the WebGPU renderer chunk is never even fetched.
+
+The init call asks for a transparent canvas sized to the host element:
+
+```ts
+const app = new Application();
+await app.init({
+  width: Math.max(1, host.clientWidth),
+  height: Math.max(1, host.clientHeight),
+  backgroundAlpha: 0,
+  antialias: false,
+  resolution: Math.min(window.devicePixelRatio || 1, 2),
+  autoDensity: true,
+  preference: ["webgl"],
+  eventFeatures: { move: false, globalMove: false, click: false, wheel: false },
+});
+```
+
+A few of these are worth a note:
+
+- `autoDensity: true` keeps the coordinate system in CSS pixels while the backing store matches the device pixel ratio, so grid math and DOM pointer coordinates line up 1:1.
+- `preference: ["webgl"]` uses the array form on purpose. The string form `"webgl"` means "try WebGL first, then fall back through WebGPU and canvas"; the array form means WebGL or nothing. If it is unavailable, `init()` throws and the catch keeps the static fallback.
+- `eventFeatures` turns off Pixi's whole interaction system. The canvas is `pointer-events: none` and we read the pointer from DOM events instead, so there is no reason to pay for hit testing.
+
+---
+
+## One texture, thousands of particles
+
+Drawing a couple thousand circles per frame with `Graphics` would be wasteful. Instead we draw one white circle, bake it to a texture, and render every dot as a tinted, scaled copy through a `ParticleContainer`:
+
+```ts
+const dotShape = new Graphics().circle(0, 0, TEXTURE_RADIUS).fill(0xffffff);
+const texture = app.renderer.generateTexture({
+  target: dotShape,
+  resolution: 2,
+  antialias: true,
+});
+dotShape.destroy();
+
+const container = new ParticleContainer({
+  texture,
+  dynamicProperties: { position: true, vertex: true, color: true },
+});
+app.stage.addChild(container);
+```
+
+`ParticleContainer` is another big v8 change. It no longer takes sprites; you add flat `Particle` structs with `addParticle()`, and you declare up front which properties change per frame via `dynamicProperties`. Everything you leave static is cheaper. We animate position (the spring), scale (`vertex`), and tint plus alpha (`color`), so those three are dynamic.
+
+Building the grid is a loop over rows and columns. Each dot remembers its home position in a `Float32Array`, gets a wave phase derived from its coordinates, and starts at the theme's base color:
+
+```ts
+const tint = (baseR << 16) | (baseG << 8) | baseB;
+
+for (let i = 0; i < count; i++) {
+  const x = marginX + (i % cols) * SPACING;
+  const y = marginY + Math.floor(i / cols) * SPACING;
+  homeX[i] = x;
+  homeY[i] = y;
+  phase[i] = x * 0.011 + y * 0.013 + Math.random() * 0.6;
+  const particle = new Particle({
+    texture,
+    x,
+    y,
+    anchorX: 0.5,
+    anchorY: 0.5,
+    scaleX: baseScale,
+    scaleY: baseScale,
+    tint,
+    alpha: baseAlpha,
+  });
+  particles[i] = particle;
+  container.addParticle(particle);
+}
+```
+
+The white texture matters: tint multiplies the texture color, so a white source means the tint comes through exactly.
+
+---
+
+## The animation loop
+
+In v8 the ticker callback receives the `Ticker` instance, not a delta number. `deltaTime` is normalized: 1.0 at 60 fps, 2.0 at 30 fps. We clamp it so a long frame gap (tab switch, GC pause) cannot fling the dots across the screen:
+
+```ts
+const tick = (ticker: Ticker): void => {
+  const dt = Math.min(ticker.deltaTime, 4);
+  elapsed += ticker.deltaMS;
+  // ...
+};
+app.ticker.add(tick);
+```
+
+Each dot runs a small spring simulation toward a target displacement. When the pointer is near, the target points away from it, with a squared falloff so the edge of the influence circle is soft:
+
+```ts
+const dx = hx - pointerX;
+const dy = hy - pointerY;
+const distSq = dx * dx + dy * dy;
+if (distSq < radiusSq) {
+  const dist = Math.sqrt(distSq) || 1;
+  const falloff = 1 - dist / POINTER_RADIUS;
+  influence = falloff * falloff;
+  targetX = (dx / dist) * PUSH * influence;
+  targetY = (dy / dist) * PUSH * influence;
+}
+
+velocityX[i] = (velocityX[i] + (targetX - offsetX[i]) * spring) * damping;
+velocityY[i] = (velocityY[i] + (targetY - offsetY[i]) * spring) * damping;
+offsetX[i] += velocityX[i] * dt;
+offsetY[i] += velocityY[i] * dt;
+```
+
+When the pointer leaves, the target snaps back to zero and the spring carries the dot home with a little overshoot. That overshoot is what makes the grid feel alive instead of mechanical.
+
+On top of the spring, every dot gets a slow ambient wave so the field is never perfectly still:
+
+```ts
+particle.x = hx + offsetX[i] + Math.sin(time * 0.8 + phase[i]) * WAVE_AMPLITUDE;
+particle.y = hy + offsetY[i] + Math.cos(time * 0.7 + phase[i] * 1.7) * WAVE_AMPLITUDE;
+```
+
+Because the phase is derived from the home position, the wave travels across the grid instead of every dot bobbing in unison.
+
+Dots near the pointer also heat up: alpha, scale, and tint all lerp toward an "active" state driven by a smoothed excitement value. The tint lerp is plain integer math on RGB channels, no allocations inside the loop:
+
+```ts
+particle.tint =
+  ((baseR + (activeR - baseR) * heat) << 16) |
+  ((baseG + (activeG - baseG) * heat) << 8) |
+  (baseB + (activeB - baseB) * heat);
+```
+
+---
+
+## Following the pointer
+
+The canvas never receives pointer events. We listen on `window` and convert to host-local coordinates once per frame:
+
+```ts
+window.addEventListener("pointermove", onPointerMove, { passive: true });
+window.addEventListener("pointerdown", onPointerMove, { passive: true });
+document.documentElement.addEventListener("pointerleave", onPointerGone);
+```
+
+`pointermove` covers mouse and touch-drag with one listener. `onPointerGone` parks the pointer far offscreen so the grid relaxes when the cursor leaves the window. The host's bounding rect is cached and refreshed on scroll and resize, so converting client coordinates to host-local ones inside the tick costs two subtractions and never touches layout.
+
+---
+
+## Matching the theme
+
+This site toggles dark mode by flipping a `dark` class on `<html>`, with no event fired. A `MutationObserver` on the class attribute is enough to react:
+
+```ts
+const themeObserver = new MutationObserver(applyTheme);
+themeObserver.observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ["class"],
+});
+```
+
+The nice part is where the colors come from. Tailwind v4 defines theme tokens in a `@theme` block, and those become real CSS custom properties on `:root`. So the canvas reads the same palette the rest of the site uses, at runtime, with no duplicated hex values:
+
+```ts
+const cssColor = (name: string, fallback: string): number => {
+  const value = getComputedStyle(document.documentElement)
+    .getPropertyValue(name)
+    .trim();
+  return new Color(value || fallback).toNumber();
+};
+
+const active = dark
+  ? cssColor("--color-dark-accent", "#f2613f")
+  : cssColor("--color-light-secondary", "#d5451b");
+```
+
+Pixi's `Color` class parses whatever the custom property holds and gives back the number Pixi wants. In dark mode the dots are faint white and warm up to orange near the cursor. In light mode they are dark brown and heat up to the site's red.
+
+---
+
+## Knowing when to stop
+
+A decorative background has no business burning battery. Three small guards:
+
+```ts
+app.ticker.maxFPS = 60;
+
+const intersection = new IntersectionObserver((entries) => {
+  // Records arrive oldest-first; only the newest state matters.
+  onScreen = entries[entries.length - 1]?.isIntersecting ?? true;
+  refreshRect();
+  syncRunning();
+});
+intersection.observe(host);
+
+reducedMotion.addEventListener("change", () => {
+  motionOk = !reducedMotion.matches;
+  syncRunning();
+});
+```
+
+The `IntersectionObserver` stops the whole app once you scroll past the hero, and starts it again when it comes back. The media query listener handles users who switch on reduced motion while the page is open; when that happens, every dot is reset to its home position and one last frame is rendered, so they are left with a calm static grid instead of dots frozen mid-scatter.
+
+The frame cap adapts too. It starts at 60 fps (so a 144 Hz monitor does not render a background effect at 144 fps), and after four seconds without pointer movement it drops to 30, where the slow ambient drift looks identical. Any pointer activity brings it back up.
+
+One subtle trap we hit: stopping the ticker does not blank the canvas, but resizing it does. The drawing buffer resets to transparent on resize and a stopped app never repaints. So the resize handler renders one frame by hand whenever the ticker is stopped, otherwise a reduced-motion user who rotates their phone would watch the grid vanish.
+
+---
+
+That is the whole effect: one Astro component, two small TypeScript modules, and a library that only loads when it will actually be seen. The full source is in this site's repo: [DotGrid.astro](https://github.com/ikhsanuddin/ikhsanuddin.com/blob/main/src/components/DotGrid.astro) and [dot-grid.ts](https://github.com/ikhsanuddin/ikhsanuddin.com/blob/main/src/scripts/dot-grid.ts).
+
+Thank you
