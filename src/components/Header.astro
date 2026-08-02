@@ -7,7 +7,6 @@ const path = Astro.url.pathname;
 
 const links = [
   { href: "/about/ikhsanuddin", label: "About", prefix: "/about" },
-  { href: "/projects", label: "Showcase", prefix: "/projects" },
   { href: "/blog", label: "Blog", prefix: "/blog" },
 ];
 
@@ -31,6 +30,8 @@ const isActive = (prefix: string) => path.startsWith(prefix);
         <button
           type="button"
           id="open-menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
           class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
         >
           <span class="sr-only">Open main menu</span>
@@ -120,15 +121,23 @@ const isActive = (prefix: string) => path.startsWith(prefix);
 
   // Mobile menu
   const mobileMenu = document.getElementById("mobile-menu");
-  document
-    .getElementById("open-menu")
-    ?.addEventListener("click", () => mobileMenu?.classList.remove("hidden"));
+  const openMenu = document.getElementById("open-menu");
+  const setMenu = (open) => {
+    mobileMenu?.classList.toggle("hidden", !open);
+    openMenu?.setAttribute("aria-expanded", String(open));
+    if (!open) openMenu?.focus();
+  };
+  openMenu?.addEventListener("click", () => setMenu(true));
   document
     .getElementById("close-menu")
-    ?.addEventListener("click", () => mobileMenu?.classList.add("hidden"));
+    ?.addEventListener("click", () => setMenu(false));
   document
     .getElementById("mobile-menu-backdrop")
-    ?.addEventListener("click", () => mobileMenu?.classList.add("hidden"));
+    ?.addEventListener("click", () => setMenu(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !mobileMenu?.classList.contains("hidden"))
+      setMenu(false);
+  });
 
   // Theme toggles (html.dark is set pre-paint in the Base layout head)
   const syncToggles = () => {

@@ -3,7 +3,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer
-  class="relative bg-gradient-to-r from-slate-50 dark:from-gray-900 backdrop-blur-md text-gray-500"
+  class="relative bg-gradient-to-r from-slate-50 dark:from-gray-900 backdrop-blur-md text-gray-600 dark:text-gray-400"
 >
   <div
     class="mx-auto max-w-7xl p-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center"
@@ -39,16 +39,28 @@ const year = new Date().getFullYear();
         </a>
       </small>
     </div>
-    <ul class="text-sm lg:text-right lg:order-3 mx-auto lg:ml-auto flex">
-      <li><a class="mr-2" href="/blog">Blog</a></li>
-      <li><a class="mr-2" href="/about/ikhsanuddin">About</a></li>
-      <li><a class="mr-2" href="/projects">Projects</a></li>
-      <li><a class="mr-2" href="/sitemap-index.xml">Sitemap</a></li>
-      <li><a href="/">Home</a></li>
-    </ul>
-    <p
-      class="text-center mx-auto text-gray-500 lg:order-2 md:col-span-2 lg:col-span-1"
+    <ul
+      class="text-sm lg:order-3 mx-auto lg:mr-0 flex flex-wrap justify-center gap-x-4 gap-y-1"
     >
+      {
+        [
+          { href: "/blog/", label: "Blog" },
+          { href: "/about/ikhsanuddin/", label: "About" },
+          { href: "/sitemap-index.xml", label: "Sitemap" },
+          { href: "/", label: "Home" },
+        ].map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="inline-block py-1 hover:text-light-secondary dark:hover:text-dark-accent transition-colors"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="text-center mx-auto lg:order-2 md:col-span-2 lg:col-span-1">
       Copyright © {year} Ikhsanuddin
     </p>
   </div>

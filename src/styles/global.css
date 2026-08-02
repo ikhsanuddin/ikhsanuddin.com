@@ -17,13 +17,25 @@
   /* Light theme colors */
   --color-light-bg: #f4e7e1;
   --color-light-primary: #ff9b45;
-  --color-light-secondary: #d5451b;
+  /* Darkened from #d5451b so small text on --color-light-bg clears 4.5:1 */
+  --color-light-secondary: #b93a12;
   --color-light-accent: #521c0d;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Keep in-page anchors clear of the fixed header */
+    scroll-padding-top: 5rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-light-secondary);
+    outline-offset: 2px;
+  }
+
+  .dark :focus-visible {
+    outline-color: var(--color-dark-accent);
   }
 
   body {
@@ -63,6 +75,20 @@
 
 .animate-fadeInUp {
   animation: fadeInUp 0.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Smooth scrollbar */

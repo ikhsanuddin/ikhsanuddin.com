@@ -22,7 +22,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# Production image — static files served by nginx
+# Production image: static files served by nginx
 FROM nginx:alpine AS runner
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
