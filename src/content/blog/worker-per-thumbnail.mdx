@@ -1,0 +1,136 @@
+---
+title: "A worker per thumbnail: fixing a browser memory crash without breaking drag and drop"
+date: 2026-08-13
+category: Performance
+imageUrl: /blog/worker-per-thumbnail.svg
+---
+
+A PDF viewer I worked on had a page manager for browsing and reordering large sets of pages. Most of the time it behaved well. Open reorder mode on a large document, though, and the browser tab could consume enough memory to become unresponsive or crash.
+
+The first symptom looked like a rendering problem. It was tempting to reach for list virtualization or CSS containment. The actual cause sat one layer below the interface: every thumbnail card mounted a PDF hook, and every instance eagerly created its own Web Worker and WebAssembly PDF runtime.
+
+The page manager could mount many cards at once because the drag-and-drop library needed their geometry. That turned one harmless initialization into an O(N) resource problem. A document with many pages did not create one PDF worker. It created one per mounted card, even when a card already had a server-generated thumbnail and never needed to render PDF content in the browser.
+
+The fix was small, but finding a safe version took more work than changing eager initialization to lazy initialization.
+
+## Why the obvious fix had already failed
+
+An earlier attempt used `content-visibility: auto` to skip rendering off-screen cards. It reduced browser work, but it also changed the geometry reported for cards outside the viewport. The drag-and-drop collision algorithm relied on those bounding rectangles to decide where a page should land.
+
+Memory improved. Reordering broke.
+
+That result clarified the constraint: reorder mode had to keep the full card structure available to the drag-and-drop system. I could not solve the crash by making off-screen cards disappear from layout calculations.
+
+There were still two expensive operations that did not need to happen eagerly:
+
+1. Starting a PDF worker for every mounted card.
+2. Fetching and decoding every thumbnail image immediately.
+
+Both could be deferred without changing card geometry.
+
+## Make the worker follow real use
+
+The PDF hook supported a handful of operations that needed the document parsed in the browser, rendering a fallback thumbnail among them. Those operations needed a worker. Mounting the card did not.
+
+I moved worker creation behind one function. In simplified form:
+
+```ts
+function ensureWorker(): PdfWorker | null {
+  if (!mountedRef.current) return null;
+  if (!fileUrlRef.current) return null;
+
+  if (!workerRef.current) {
+    workerRef.current = createPdfWorker();
+  }
+
+  return workerRef.current;
+}
+```
+
+Every operation that required PDF processing went through this seam. The behavior became:
+
+- Mounting a thumbnail card creates no worker.
+- A card backed by an existing image can remain worker-free for its whole lifetime.
+- The first real PDF operation creates one worker.
+- Later operations on the same card reuse it.
+- Unmounting the card terminates the worker if one exists.
+
+This changed worker allocation from "one per mounted card" to "one per card that actually needs browser-side PDF work." The distinction matters in a page grid where most cards can display an existing image.
+
+I did not introduce a global worker pool. A pool could reduce the remaining worker count, but it would add scheduling, cancellation, ownership, and backpressure concerns. Lazy per-card creation removed the immediate failure with a much smaller change. A shared pool only becomes worthwhile if measurements show that the remaining concurrent work is still too expensive.
+
+## The lifecycle bug inside the lazy fix
+
+Lazy creation introduced a less obvious failure mode.
+
+React components can unmount while asynchronous work is still in flight. A callback created before unmount may run later. If that stale callback calls `ensureWorker()` after cleanup has already terminated the old worker, it can create a new worker that nothing will ever clean up.
+
+The first lazy implementation checked whether a worker existed, but that was not enough. Cleanup could run, clear the worker reference, and then a delayed callback could create another one. The tab would leak a worker after the component was gone.
+
+The mounted guard belongs inside `ensureWorker()`, not only at each caller. That gives every current and future worker path the same protection:
+
+```ts
+function ensureWorker(): PdfWorker | null {
+  if (!mountedRef.current) return null;
+  if (!fileUrlRef.current) return null;
+
+  return (workerRef.current ??= createPdfWorker());
+}
+```
+
+Putting the check at the shared creation point was smaller and safer than remembering to guard every operation. It also documented the real invariant: an unmounted card must never create resources.
+
+The file URL check handled a related edge case. Calling an operation before a document URL existed should not create a throwaway worker. The worker should follow real input, not merely an attempted action.
+
+## Let the browser defer image decoding
+
+The second change was much less complicated. Thumbnail images received the native browser attribute:
+
+```html
+<img src="..." loading="lazy" alt="Page thumbnail" />
+```
+
+Reorder mode still mounted every card, so the drag-and-drop system kept the geometry it needed. The browser no longer had to fetch and decode every off-screen thumbnail at once.
+
+Using the platform feature was preferable to building another observer or image-loading abstraction. The browser already knows the viewport, request priority, and decoding pipeline. One attribute covered the requirement without adding state or event handling.
+
+Lazy images alone would not have fixed the worker explosion, and lazy workers alone would not have stopped unnecessary image decoding. Together they removed two independent sources of memory pressure while leaving layout behavior unchanged.
+
+## Tests that protected the fix
+
+The useful tests were about resource lifecycle rather than screenshots.
+
+I added checks for these cases:
+
+- Mounting the hook does not create a worker.
+- The first valid operation creates exactly one worker.
+- Later operations reuse that worker.
+- An operation without a document URL creates no worker.
+- A stale callback invoked after unmount cannot resurrect a worker.
+- Unmount terminates an existing worker.
+
+The post-unmount case was especially important. The interface could appear correct while still leaking resources in the background. A visual test would not catch that. The test had to keep a callback from the mounted hook, unmount the component, invoke the stale callback, and assert that the worker factory was not called again.
+
+I also verified that drag-and-drop behavior remained unchanged. The fix deliberately avoided CSS containment and layout virtualization in reorder mode, because those approaches had already shown that a memory optimization can be functionally wrong.
+
+## Result
+
+Large documents no longer created a PDF worker for every mounted thumbnail card. Cards with existing thumbnails stayed on the cheap path, and off-screen image decoding was left to the browser's lazy-loading behavior. Drag-and-drop kept the full layout information it required.
+
+I do not have a public number for the memory reduction, so I will not invent one. The architectural result is still concrete: eager worker startup was removed from card mount, stale callbacks could not recreate workers after cleanup, and image decoding no longer began for every off-screen card at once.
+
+The incident changed how I review browser features that repeat across large collections. A hook that creates one worker, observer, canvas, or subscription looks cheap in isolation. Put that hook in every card and the cost is multiplied by the number of mounted items. The relevant question is not "How expensive is this component?" It is "What resource does each instance own, and when does that resource become necessary?"
+
+## What I would measure next
+
+The next step would be instrumentation, not another abstraction. I would track:
+
+- Active and peak worker count.
+- Worker startup and termination count.
+- Number of thumbnails fetched and decoded before user interaction.
+- Browser memory during normal browsing and reorder mode.
+- Time until the first usable page grid.
+
+If worker count remained high after lazy creation, I would test a bounded shared pool with explicit cancellation and per-task ownership. If image decoding remained the main cost, I would inspect thumbnail dimensions and encoded size before adding custom loading logic.
+
+The lesson is simple: preserve the behavior users depend on, then remove work that has no reason to happen yet.

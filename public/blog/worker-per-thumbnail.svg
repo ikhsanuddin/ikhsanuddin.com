@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 625" width="1000" height="625" role="img" aria-labelledby="t d">
+  <title id="t">Eager versus lazy worker creation in a thumbnail grid</title>
+  <desc id="d">Left: eight mounted thumbnail cards, each owning its own PDF worker, eight workers total. Right: the same eight cards, seven served from an existing image and one owning a worker because it does real PDF work.</desc>
+  <style>
+    :root { color-scheme: light dark; }
+    .bg    { fill: #f4e7e1; }
+    .card  { fill: #ffffff; stroke: #521c0d; stroke-opacity: .22; }
+    .img   { fill: #521c0d; fill-opacity: .13; }
+    .w     { fill: #b93a12; }
+    .wtxt  { fill: #ffffff; }
+    .head  { fill: #521c0d; }
+    .sub   { fill: #521c0d; fill-opacity: .68; }
+    .rule  { stroke: #521c0d; stroke-opacity: .18; }
+    .count { fill: #b93a12; }
+    text { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .h { font-size: 30px; font-weight: 600; letter-spacing: .04em; }
+    .s { font-size: 23px; }
+    .c { font-size: 32px; font-weight: 600; }
+    .b { font-size: 20px; font-weight: 600; }
+    @media (prefers-color-scheme: dark) {
+      .bg   { fill: #0c0c0c; }
+      .card { fill: #191817; stroke: #ff9b45; stroke-opacity: .26; }
+      .img  { fill: #ff9b45; fill-opacity: .16; }
+      .w    { fill: #f2613f; }
+      .wtxt { fill: #0c0c0c; }
+      .head { fill: #f5efe9; }
+      .sub  { fill: #f5efe9; fill-opacity: .62; }
+      .rule { stroke: #ff9b45; stroke-opacity: .22; }
+      .count{ fill: #f2613f; }
+    }
+  </style>
+
+  <rect class="bg" width="1000" height="625"/>
+  <g transform="translate(0,62)">
+  <line class="rule" x1="500" y1="60" x2="500" y2="440"/>
+
+  <!-- eager -->
+  <text class="h head" x="60" y="72">eager</text>
+  <text class="s sub" x="60" y="108">a worker at mount</text>
+
+  <g>
+    <g>
+      <rect class="card" x="60" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="72" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="150" cy="150" r="17"/>
+      <text class="b wtxt" x="150" y="157" text-anchor="middle">W</text>
+    </g>
+    <g transform="translate(105,0)">
+      <rect class="card" x="60" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="72" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="150" cy="150" r="17"/>
+      <text class="b wtxt" x="150" y="157" text-anchor="middle">W</text>
+    </g>
+    <g transform="translate(210,0)">
+      <rect class="card" x="60" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="72" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="150" cy="150" r="17"/>
+      <text class="b wtxt" x="150" y="157" text-anchor="middle">W</text>
+    </g>
+    <g transform="translate(315,0)">
+      <rect class="card" x="60" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="72" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="150" cy="150" r="17"/>
+      <text class="b wtxt" x="150" y="157" text-anchor="middle">W</text>
+    </g>
+    <g transform="translate(0,140)">
+      <rect class="card" x="60" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="72" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="150" cy="150" r="17"/>
+      <text class="b wtxt" x="150" y="157" text-anchor="middle">W</text>
+    </g>
+    <g transform="translate(105,140)">
+      <rect class="card" x="60" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="72" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="150" cy="150" r="17"/>
+      <text class="b wtxt" x="150" y="157" text-anchor="middle">W</text>
+    </g>
+    <g transform="translate(210,140)">
+      <rect class="card" x="60" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="72" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="150" cy="150" r="17"/>
+      <text class="b wtxt" x="150" y="157" text-anchor="middle">W</text>
+    </g>
+    <g transform="translate(315,140)">
+      <rect class="card" x="60" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="72" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="150" cy="150" r="17"/>
+      <text class="b wtxt" x="150" y="157" text-anchor="middle">W</text>
+    </g>
+  </g>
+
+  <text class="c count" x="60" y="472">8 cards, 8 workers</text>
+
+  <!-- lazy -->
+  <text class="h head" x="560" y="72">lazy</text>
+  <text class="s sub" x="560" y="108">a worker at first real use</text>
+
+  <g>
+    <g>
+      <rect class="card" x="560" y="150" width="90" height="112" rx="4"/>
+      <rect class="img" x="572" y="162" width="66" height="70" rx="2"/>
+      <circle class="w" cx="650" cy="150" r="17"/>
+      <text class="b wtxt" x="650" y="157" text-anchor="middle">W</text>
+    </g>
+    <g><rect class="card" x="665" y="150" width="90" height="112" rx="4"/><rect class="img" x="677" y="162" width="66" height="70" rx="2"/></g>
+    <g><rect class="card" x="770" y="150" width="90" height="112" rx="4"/><rect class="img" x="782" y="162" width="66" height="70" rx="2"/></g>
+    <g><rect class="card" x="875" y="150" width="90" height="112" rx="4"/><rect class="img" x="887" y="162" width="66" height="70" rx="2"/></g>
+    <g><rect class="card" x="560" y="290" width="90" height="112" rx="4"/><rect class="img" x="572" y="302" width="66" height="70" rx="2"/></g>
+    <g><rect class="card" x="665" y="290" width="90" height="112" rx="4"/><rect class="img" x="677" y="302" width="66" height="70" rx="2"/></g>
+    <g><rect class="card" x="770" y="290" width="90" height="112" rx="4"/><rect class="img" x="782" y="302" width="66" height="70" rx="2"/></g>
+    <g><rect class="card" x="875" y="290" width="90" height="112" rx="4"/><rect class="img" x="887" y="302" width="66" height="70" rx="2"/></g>
+  </g>
+
+  <text class="c count" x="560" y="472">8 cards, 1 worker</text>
+  </g>
+</svg>
