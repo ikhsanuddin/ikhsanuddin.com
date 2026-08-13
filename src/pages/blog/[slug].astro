@@ -30,7 +30,7 @@ const { Content } = await render(post);
     >
       <div class="w-full mx-auto space-y-4 text-center">
         <a
-          href={`/blog/category/${category.toLowerCase()}`}
+          href={`/blog/category/${category.toLowerCase()}/`}
           class="text-xs font-semibold tracking uppercase"
         >
           #{category}
@@ -40,7 +40,7 @@ const { Content } = await render(post);
           by{" "}
           <a
             rel="noopener noreferrer"
-            href="/about/ikhsanuddin"
+            href="/about/ikhsanuddin/"
             class="underline dark:text-orange-400"
           >
             <span itemprop="name">Ikhsanuddin Syamsuri</span>

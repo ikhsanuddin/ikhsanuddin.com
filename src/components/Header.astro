@@ -6,8 +6,8 @@ import Icon from "./icons/Icon.astro";
 const path = Astro.url.pathname;
 
 const links = [
-  { href: "/about/ikhsanuddin", label: "About", prefix: "/about" },
-  { href: "/blog", label: "Blog", prefix: "/blog" },
+  { href: "/about/ikhsanuddin/", label: "About", prefix: "/about" },
+  { href: "/blog/", label: "Blog", prefix: "/blog" },
 ];
 
 const isActive = (prefix: string) => path.startsWith(prefix);

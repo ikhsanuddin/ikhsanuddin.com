@@ -8,7 +8,7 @@ interface Props {
 
 const { post } = Astro.props;
 const { title, date, category, imageUrl, imageClassName } = post.data;
-const url = `/blog/${post.id}`;
+const url = `/blog/${post.id}/`;
 
 // Plain-text excerpt: drop MDX imports/exports, code fences, tags, and
 // markdown markers so the card shows prose instead of source code. The card
@@ -49,7 +49,7 @@ const excerpt = (post.body ?? "")
         {formatDate(date)}
       </time>
       <a
-        href={`/blog/category/${category.toLowerCase()}`}
+        href={`/blog/category/${category.toLowerCase()}/`}
         class="text-orange-700 hover:text-orange-900 dark:text-orange-400 dark:hover:text-orange-600 ease-in-out duration-300 relative"
       >
         <span class="absolute inset-0 z-10"></span>
@@ -74,15 +74,15 @@ const excerpt = (post.body ?? "")
     </picture>
     <div class="text-sm leading-6 group">
       <p class="font-semibold text-gray-900 dark:text-gray-100">
-        <a href="/about/ikhsanuddin">
+        <a href="/about/ikhsanuddin/">
           <span class="absolute inset-0"></span>
           Ikhsanuddin Syamsuri
         </a>
       </p>
       <p
-        class="text-gray-600 group-hover:text-gray-900 dark:group-hover:text-gray-500 ease-in-out duration-300"
+        class="text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-300 ease-in-out duration-300"
       >
-        Software Engineer
+        Senior Software Engineer
       </p>
     </div>
   </div>
