@@ -44,6 +44,56 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="manifest" href="/manifest.json" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <!-- Google tag (gtag.js) -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-59YQR2F3HF"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-59YQR2F3HF");
+
+      // Meaningful measurement: contact intent and finished reads,
+      // not just pageviews.
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest && e.target.closest("a[href]");
+        if (!a) return;
+        const href = a.getAttribute("href") || "";
+        if (href.startsWith("mailto:")) {
+          gtag("event", "contact_click", { method: "email" });
+        } else if (a.hostname && a.hostname !== location.hostname) {
+          const method = /linkedin/.test(a.hostname)
+            ? "linkedin"
+            : /github/.test(a.hostname)
+              ? "github"
+              : "outbound";
+          gtag("event", "contact_click", { method, link_url: a.href });
+        }
+      });
+
+      // article_read: fires once when a blog post is read to the end.
+      window.addEventListener("DOMContentLoaded", () => {
+        if (!/^\/blog\/[^/]+\/?$/.test(location.pathname)) return;
+        const article = document.querySelector("article");
+        if (!article) return;
+        const sentinel = document.createElement("span");
+        article.appendChild(sentinel);
+        const io = new IntersectionObserver(([entry]) => {
+          if (!entry.isIntersecting) return;
+          io.disconnect();
+          gtag("event", "article_read", {
+            article_slug: location.pathname,
+            article_title: document.title,
+          });
+        });
+        io.observe(sentinel);
+      });
+    </script>
+
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE_NAME} />
