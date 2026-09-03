@@ -1,0 +1,94 @@
+---
+title: "Your attribution dies at the signup form. That's where the money question starts."
+date: 2026-09-03
+category: Analytics
+imageUrl: /blog/marketing-attribution-beyond-signup.svg
+---
+
+After ten years of building products across the stack, and more recently building trial signup flows for B2B software, I keep seeing the same expensive blind spot: teams can tell you which campaign produced a signup, but almost none can tell you which campaign produced a customer.
+
+That difference is not academic. It decides where the marketing budget goes next quarter.
+
+## The problem I kept running into
+
+A signup is the easiest thing in the funnel to count, so it becomes the thing everyone optimizes. But a signup is a proxy. The real event the business cares about happens later: the user finishes onboarding, connects their external account, and runs the core workflow for the first time. That is the moment a trial starts looking like revenue.
+
+I figured this out the hard way while building a trial signup flow for a B2B product. The journey crossed a campaign link, the marketing site, a signup page, an account form, and then the product itself. For some users even that wasn't the end. They still had to connect an external account before they could actually try the thing they came for.
+
+Our attribution worked fine at the top of that journey. It told us nothing reliable about the bottom. Marketing saw conversions. Product saw users who never reached value. Both were looking at the same people and drawing opposite conclusions, and the budget followed the wrong conclusion.
+
+## What I figured out: campaign context is product state, not a query string
+
+Most teams treat UTM parameters, click IDs, and referral data as throwaway query-string values. In a single-page funnel that works. In a real B2B journey it falls apart, because any of these breaks the chain:
+
+- a redirect strips the original query string
+- the user crosses domains or moves into the app
+- signup creates a new authenticated identity
+- the user leaves and comes back tomorrow
+- onboarding finishes on another device or inside an external integration
+
+Every one of those breaks looks invisible on a dashboard. The numbers still show up. They're just wrong.
+
+The fix that actually held up for me: treat attribution data as persistent state. Capture it at the first reliable touchpoint, store it, and carry it forward every time the user's identity changes. Attach it to the anonymous visitor first, reconcile it with the signup record at authentication, then stamp it onto downstream product events so nothing depends on the original URL still being around.
+
+To be clear, this is not "store every parameter forever" or "overwrite attribution whenever a new UTM shows up." You still need explicit rules for first-touch versus last-touch, retention, consent, and identity merging. The point is that those rules should be business decisions someone made on purpose, not whatever browser navigation happened to preserve.
+
+## Measure activation, because that's what the budget should chase
+
+Account creation is a clean event, which is exactly why it gets overvalued.
+
+In the flow I built, connecting an external account and running the core workflow were far stronger signals of intent than submitting a form. A campaign that drives 500 signups and 10 activations is worse for the business than one that drives 100 signups and 40 activations, but if you only measure signups, you will double down on the first one. That is real money spent acquiring users who were never going to convert.
+
+Once attribution survives the whole journey, the questions you can ask change:
+
+- Which campaigns produce users who finish onboarding, not just start it?
+- Which acquisition sources lead to an external account connection?
+- How long does activation take per source, and what does that do to payback?
+- Where exactly do users from a given campaign drop out?
+- Do the educational articles and free tools attract users who later reach value, or just traffic?
+
+These questions connect marketing spend to product behavior. Without them you're optimizing a proxy metric and hoping the real number moves too. Sometimes it does. Often it doesn't, and nobody notices for two quarters.
+
+## Verify every boundary, because dashboards lie by omission
+
+Event tracking should describe the journey users actually take. A typical one:
+
+1. Campaign or content visit
+2. Signup started
+3. Account created
+4. Onboarding completed
+5. External account connected
+6. First meaningful product action
+
+Each boundary between those steps needs its own verification: does the attribution context exist going in, survive the transition, and appear on the event coming out. I've watched dashboards look complete while silently dropping context between the marketing site and the app, or between the app and an external integration. Nothing errors. The data just quietly loses meaning.
+
+This is partly an analytics problem, but I'd argue it's a product problem too. The user has one intention across the whole flow. If your systems can't hold onto that intention across services, the experience usually feels as disconnected as the data looks.
+
+## Start from intent, not clicks
+
+The useful unit of analysis is not the click. It's the intent behind the click and whether the product helped the person act on it. Someone arrives from a pricing calculator or an educational article with a job in mind. The question worth paying for is whether that intent survives all the way to a connected account and a first useful action.
+
+Analytics tools can draw you a journey view. They can't make it trustworthy. Only the product can do that, and it takes coordination between marketing pages, the signup system, onboarding, identity records, and event instrumentation. In my experience that coordination is where most attribution efforts actually die, because it crosses team boundaries and nobody owns the whole path.
+
+## The review I'd run on any existing trial flow
+
+Pick one campaign path and walk it end to end:
+
+- Record the campaign fields present at the first visit.
+- Follow the journey through every redirect, domain, form, and auth step.
+- Check where campaign context is stored and how long it stays available.
+- Verify how anonymous activity gets linked to the eventual user and account.
+- Identify the product event that represents real activation, not signup.
+- Confirm that activation event still carries the correct campaign context.
+- Test the ugly paths: interrupted journeys, returning users, identity merges.
+- Write down the first-touch, last-touch, overwrite, retention, and consent rules.
+
+Do not stop when the signup event shows up in the analytics tool. That's where most audits end, and it's exactly where the interesting failures begin.
+
+## The bottom line
+
+Attribution earns its keep when it can tell you which acquisition efforts lead to real product use, because that's the number that should drive spend. Getting there means campaign context has to survive past the landing page and past account creation.
+
+Persist the context. Measure the deeper activation event. Verify every transition. Then attribution stops describing the easiest part of the journey to count and starts describing the part the business actually gets paid for.
+
+I also walk through this topic on video: [Marketing Attribution](https://www.loom.com/share/750bba29469b4dd38405d5710c2a0881).

@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 625" width="1000" height="625" role="img" aria-labelledby="t d">
+  <title id="t">Attribution as a query string versus attribution as product state</title>
+  <desc id="d">Top: a five-step journey where the utm context survives only to the signup form, the chain breaks and the remaining steps are unknown. Bottom: the same journey with the context stored as product state, carried through onboarding and connection to first value.</desc>
+  <style>
+    :root { color-scheme: light dark; }
+    .bg    { fill: #f4e7e1; }
+    .card  { fill: #ffffff; stroke: #521c0d; stroke-opacity: .22; }
+    .ghost { fill: #ffffff; fill-opacity: .4; stroke: #521c0d; stroke-opacity: .18; stroke-dasharray: 6 6; }
+    .w     { fill: #b93a12; }
+    .wtxt  { fill: #ffffff; }
+    .head  { fill: #521c0d; }
+    .sub   { fill: #521c0d; fill-opacity: .68; }
+    .dim   { fill: #521c0d; fill-opacity: .38; }
+    .rule  { stroke: #521c0d; stroke-opacity: .18; }
+    .arrow { stroke: #521c0d; stroke-opacity: .45; stroke-width: 2; }
+    .garrow{ stroke: #521c0d; stroke-opacity: .2; stroke-width: 2; stroke-dasharray: 5 6; }
+    .count { fill: #b93a12; }
+    text { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .h { font-size: 30px; font-weight: 600; letter-spacing: .04em; }
+    .s { font-size: 23px; }
+    .c { font-size: 32px; font-weight: 600; }
+    .b { font-size: 20px; font-weight: 600; }
+    .u { font-size: 16px; font-weight: 600; }
+    @media (prefers-color-scheme: dark) {
+      .bg   { fill: #0c0c0c; }
+      .card { fill: #191817; stroke: #ff9b45; stroke-opacity: .26; }
+      .ghost{ fill: #191817; fill-opacity: .5; stroke: #ff9b45; stroke-opacity: .18; }
+      .w    { fill: #f2613f; }
+      .wtxt { fill: #0c0c0c; }
+      .head { fill: #f5efe9; }
+      .sub  { fill: #f5efe9; fill-opacity: .62; }
+      .dim  { fill: #f5efe9; fill-opacity: .35; }
+      .rule { stroke: #ff9b45; stroke-opacity: .22; }
+      .arrow{ stroke: #ff9b45; stroke-opacity: .5; }
+      .garrow{ stroke: #ff9b45; stroke-opacity: .22; }
+      .count{ fill: #f2613f; }
+    }
+  </style>
+
+  <rect class="bg" width="1000" height="625"/>
+
+  <!-- query string -->
+  <text class="h head" x="60" y="82">query string</text>
+  <text class="s sub" x="60" y="114">context dropped at the signup form</text>
+
+  <g>
+    <rect class="card" x="60" y="152" width="150" height="64" rx="4"/>
+    <text class="b head" x="135" y="191" text-anchor="middle">visit</text>
+    <rect class="w" x="164" y="139" width="46" height="26" rx="13"/>
+    <text class="u wtxt" x="187" y="157" text-anchor="middle">utm</text>
+
+    <line class="arrow" x1="216" y1="184" x2="234" y2="184"/>
+    <path class="w" d="M236 184l-8 -5v10z"/>
+
+    <rect class="card" x="242" y="152" width="150" height="64" rx="4"/>
+    <text class="b head" x="317" y="191" text-anchor="middle">signup</text>
+    <rect class="w" x="346" y="139" width="46" height="26" rx="13"/>
+    <text class="u wtxt" x="369" y="157" text-anchor="middle">utm</text>
+
+    <text class="c count" x="408" y="196" text-anchor="middle">&#215;</text>
+
+    <rect class="ghost" x="424" y="152" width="150" height="64" rx="4"/>
+    <text class="b dim" x="499" y="191" text-anchor="middle">onboard</text>
+
+    <line class="garrow" x1="580" y1="184" x2="600" y2="184"/>
+
+    <rect class="ghost" x="606" y="152" width="150" height="64" rx="4"/>
+    <text class="b dim" x="681" y="191" text-anchor="middle">connect</text>
+
+    <line class="garrow" x1="762" y1="184" x2="782" y2="184"/>
+
+    <rect class="ghost" x="788" y="152" width="150" height="64" rx="4"/>
+    <text class="b dim" x="863" y="191" text-anchor="middle">value</text>
+  </g>
+
+  <text class="c count" x="60" y="272">attribution ends at signup</text>
+
+  <line class="rule" x1="60" y1="308" x2="940" y2="308"/>
+
+  <!-- product state -->
+  <text class="h head" x="60" y="366">product state</text>
+  <text class="s sub" x="60" y="398">context carried to first value</text>
+
+  <g>
+    <rect class="card" x="60" y="436" width="150" height="64" rx="4"/>
+    <text class="b head" x="135" y="475" text-anchor="middle">visit</text>
+    <rect class="w" x="164" y="423" width="46" height="26" rx="13"/>
+    <text class="u wtxt" x="187" y="441" text-anchor="middle">utm</text>
+
+    <line class="arrow" x1="216" y1="468" x2="234" y2="468"/>
+    <path class="w" d="M236 468l-8 -5v10z"/>
+
+    <rect class="card" x="242" y="436" width="150" height="64" rx="4"/>
+    <text class="b head" x="317" y="475" text-anchor="middle">signup</text>
+    <rect class="w" x="346" y="423" width="46" height="26" rx="13"/>
+    <text class="u wtxt" x="369" y="441" text-anchor="middle">utm</text>
+
+    <line class="arrow" x1="398" y1="468" x2="416" y2="468"/>
+    <path class="w" d="M418 468l-8 -5v10z"/>
+
+    <rect class="card" x="424" y="436" width="150" height="64" rx="4"/>
+    <text class="b head" x="499" y="475" text-anchor="middle">onboard</text>
+    <rect class="w" x="528" y="423" width="46" height="26" rx="13"/>
+    <text class="u wtxt" x="551" y="441" text-anchor="middle">utm</text>
+
+    <line class="arrow" x1="580" y1="468" x2="598" y2="468"/>
+    <path class="w" d="M600 468l-8 -5v10z"/>
+
+    <rect class="card" x="606" y="436" width="150" height="64" rx="4"/>
+    <text class="b head" x="681" y="475" text-anchor="middle">connect</text>
+    <rect class="w" x="710" y="423" width="46" height="26" rx="13"/>
+    <text class="u wtxt" x="733" y="441" text-anchor="middle">utm</text>
+
+    <line class="arrow" x1="762" y1="468" x2="780" y2="468"/>
+    <path class="w" d="M782 468l-8 -5v10z"/>
+
+    <rect class="card" x="788" y="436" width="150" height="64" rx="4"/>
+    <text class="b head" x="863" y="475" text-anchor="middle">value</text>
+    <rect class="w" x="892" y="423" width="46" height="26" rx="13"/>
+    <text class="u wtxt" x="915" y="441" text-anchor="middle">utm</text>
+  </g>
+
+  <text class="c count" x="60" y="556">attribution reaches first value</text>
+</svg>
