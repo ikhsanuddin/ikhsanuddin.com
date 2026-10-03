@@ -9,9 +9,13 @@ const experiences = [
     title: "Full-Stack Engineer",
     company: "Boon (getboon.ai), US (Remote)",
     bullets: [
-      "Build AI agent and LLM-powered features automating preconstruction workflows, from document analysis to bid generation, on a platform serving thousands of monthly active users.",
-      "Ship full-stack product features across React and Ruby on Rails for enterprise construction teams, supporting tens of thousands of completed takeoffs and thousands of document uploads.",
-      "Built interactive blueprint visualization with 3D canvas rendering, plus offline-first capabilities using service workers and IndexedDB.",
+      "Build AI-assisted features for construction preconstruction, including document analysis and bid generation, on a takeoff system that handled 70,000+ takeoff runs in 90 days. Customers report bill-of-materials prep dropping from 2-3 days to about 1.5 hours.",
+      "Built the guided onboarding for new Boon Agent users, including generated use-case tiles, a default-deny integration contract for skill runs, and trial-scoped OAuth.",
+      "Led the Takeoff V2 move of the blueprint canvas from a React component graph to a PixiJS/WebGL renderer, with an rbush spatial index, a tiled rendering pipeline with level of detail, and crisp zoom at V1 parity.",
+      "In the V2 prototype, on a page with 1,366 annotations, cut click-to-select from 591 ms to 1.9 ms, took panning from a 45-second freeze to 55.7 fps, and cut JS heap from 222-244 MB to 116 MB.",
+      "Planned and measured the trial funnel and its metrics, with Amplitude instrumentation and UTM attribution.",
+      "Contributed to 65% of the third-party integrations, including Procore, Egnyte, Outlook, and Google.",
+      "Own product features end to end across interface design, application logic, deployment, and monitoring, in React and Ruby on Rails.",
     ],
   },
   {
@@ -20,9 +24,10 @@ const experiences = [
     company:
       "Undercurrent Technologies Pte Ltd (undercurrent.tech), Singapore (Remote)",
     bullets: [
-      "Developed and integrated applications using Telegram API and Web3 Wallet Service.",
-      "Engineered solutions for a Decentralized Exchange utilizing Typescript and Go.",
-      "Collaborated on game development projects with Phaser Js, enhancing user engagement.",
+      "Owned 5 backend services in TypeScript and Go for a decentralized exchange platform.",
+      "Designed and implemented Telegram-based applications integrated with Web3 wallet services, enabling secure user transactions for a Telegram community of 25,000+ members.",
+      "Delivered Phaser.js game features as daily active users grew from 3,000 to 6,000.",
+      "Worked in a fully remote, cross-border team of 3 to 6 people, communicating asynchronously via GitHub and Discord.",
     ],
   },
   {
@@ -30,11 +35,11 @@ const experiences = [
     title: "Technical Lead",
     company: "TwoSpaces, Kota Tangerang Selatan, Banten, Indonesia",
     bullets: [
-      "Led end-to-end delivery of multiple software projects, from planning and architecture to deployment and monitoring.",
-      "Managed infrastructure setup and CI/CD pipelines to support reliable and repeatable releases.",
-      "Led a team of five: two backend engineers, a frontend engineer, a database administrator, and a QA engineer.",
-      "Mentored junior engineers through code reviews, pair programming, and technical guidance.",
-      "Coordinated with stakeholders to translate business requirements into technical solutions.",
+      "Led end-to-end delivery of 6 projects, from planning and architecture to deployment and monitoring: payment gateway, merchant, and property management services, a third-party IoT integration, marketing metrics, and a website rebuild.",
+      "Rebuilt the website from Laravel to Next.js in 3 weeks.",
+      "Moved deployments from manual releases to CI/CD with zero downtime, migrated services from standard VMs to Kubernetes on AWS, and set a weekly release cadence.",
+      "Ran a proof of concept with NEC for KYC verification, face payment, and self check-in.",
+      "Led 2 junior engineers and worked alongside 2 seniors, mentoring through code reviews, pair programming, and technical guidance.",
     ],
   },
   {
@@ -42,10 +47,9 @@ const experiences = [
     title: "Technical Lead",
     company: "Tekno Kreasi Nyata, Tangerang, Indonesia",
     bullets: [
-      "Led and supported engineering teams by setting technical direction and enforcing coding standards.",
-      "Analyzed existing systems and proposed architectural improvements to enhance performance and maintainability.",
-      "Provided hands-on support for complex technical issues across frontend, backend, and infrastructure.",
-      "Onboarded new engineers and guided them through existing systems and workflows.",
+      "Led a 14-person engineering team (4 frontend, 5 backend, 2 database, 1 DevOps, 2 QA), setting technical direction and enforcing coding standards.",
+      "Analyzed a client's financial reporting system and proposed moving it to Kafka and microservices, scaling it from 5,000 to 100,000 incoming transactions per minute.",
+      "Worked cross-functionally with Customer Support, Finance, the CTO, and the CEO.",
     ],
   },
   {
@@ -53,9 +57,9 @@ const experiences = [
     title: "Lead Frontend Engineer",
     company: "Tekno Kreasi Nyata, Tangerang, Indonesia",
     bullets: [
-      "Led a frontend team of four as the team grew.",
+      "Led the frontend team as it grew from 1 to 4 engineers, having joined as the company's first employee.",
       "Owned stack selection for new projects and managed team capacity.",
-      "Maintained a B2B white-label product on single-tenant software running in multi-tenant Kubernetes infrastructure.",
+      "Maintained a B2B white-label product serving 144 tenants, built as single-tenant software running on multi-tenant Kubernetes infrastructure.",
     ],
   },
   {
@@ -73,7 +77,7 @@ const experiences = [
     title: "Senior Frontend Engineer",
     company: "Coconutlab Ltd, Indonesia",
     bullets: [
-      "Built and shipped a production mobile application using React Native.",
+      "Built and shipped ULO (ulo.life), a production React Native mobile app with 10,000+ downloads.",
     ],
   },
   {
@@ -82,7 +86,7 @@ const experiences = [
     company: "Yamisok, Tangerang, Indonesia",
     bullets: [
       "Rebuilt the company website using Vue.js and Bootstrap 4.",
-      "Took on mentorship responsibility for other frontend engineers.",
+      "Mentored 2 frontend engineers.",
     ],
   },
   {
@@ -91,21 +95,21 @@ const experiences = [
     company: "Yamisok, Tangerang, Indonesia",
     bullets: [
       "Translated designs into production HTML and CSS using Bootstrap 3.",
-      "Built a gamer portal for online tournaments, covering upper and lower bracket systems, feeds, realtime chat, and marketing email.",
+      "Built a gamer portal for online tournaments used by 4,000 players, covering upper and lower bracket systems, feeds, realtime chat, and marketing email.",
       "Supported the Laravel backend alongside frontend work.",
     ],
   },
 ];
 
+const proof = [
+  "Boon takeoff system: 70,000+ runs in 90 days",
+  "Takeoff V2 prototype: click-to-select 591 ms to 1.9 ms",
+  "Proposed Kafka move: 5,000 to 100,000 transactions per minute",
+];
+
 const skillGroups = [
   {
-    title: "Technical Lead",
-    items: [
-      "End-to-end delivery and technical decision-making",
-      "Design and implement scalable, maintainable architectures for complex software systems",
-      "Collaborate with cross-functional teams to drive project success",
-      "Stay up-to-date with industry trends and best practices, driving innovation and improvement",
-    ],
+    title: "Workflow",
     tools: [
       "Jira",
       "Confluence",
@@ -120,16 +124,13 @@ const skillGroups = [
       "bg-light-primary/10 dark:bg-dark-secondary/10 border-light-primary/20 dark:border-dark-secondary/20 hover:bg-light-primary/20 dark:hover:bg-dark-secondary/20",
   },
   {
-    title: "Senior Developer (Frontend & Backend)",
-    items: [
-      "Mentor and guide junior developers, fostering growth and technical excellence",
-      "Contribute to technical strategy, providing thought leadership and vision",
-      "Develop and maintain expertise in latest-cutting-edge technologies",
-      "Ensuring code standards, providing technical guidance, and conducting thorough code reviews",
-    ],
+    title: "Frontend & Backend",
     tools: [
       "React / Next.js",
       "TypeScript",
+      "Ruby on Rails",
+      "PixiJS",
+      "WebGL",
       "Node.js",
       "Python",
       "Go",
@@ -145,13 +146,7 @@ const skillGroups = [
       "bg-light-secondary/10 dark:bg-dark-accent/10 border-light-secondary/20 dark:border-dark-accent/20 hover:bg-light-secondary/20 dark:hover:bg-dark-accent/20",
   },
   {
-    title: "DevOps",
-    items: [
-      "Manage infrastructure with code (IaC)",
-      "Monitor and log system performance",
-      "Work with cloud and containers (Docker, Kubernetes)",
-      "Set up automated testing and deployment (CI/CD)",
-    ],
+    title: "Cloud & DevOps",
     tools: [
       "Docker",
       "Kubernetes",
@@ -178,7 +173,7 @@ const skillGroups = [
   >
     <!-- Hero Section -->
     <section
-      class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"
+      class="relative min-h-screen flex items-center justify-center px-6 py-24 overflow-hidden"
     >
       <div
         class="absolute inset-0 bg-gradient-to-br from-light-primary/20 via-light-secondary/20 to-light-accent/20 dark:from-dark-primary/20 dark:via-dark-secondary/20 dark:to-dark-accent/20"
@@ -190,7 +185,7 @@ const skillGroups = [
         <div
           class="inline-block mb-6 px-4 py-2 bg-light-primary/20 dark:bg-dark-accent/20 border border-light-secondary/30 dark:border-dark-accent/30 rounded-full text-sm font-medium"
         >
-          AI-powered B2B products
+          AI-assisted B2B products
         </div>
         <div
           class="mb-4 text-sm font-medium tracking-widest text-light-accent dark:text-dark-accent uppercase"
@@ -198,10 +193,25 @@ const skillGroups = [
           Senior Software Engineer
         </div>
         <h1
-          class="text-4xl sm:text-6xl md:text-8xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-light-secondary via-light-accent to-light-secondary dark:from-dark-accent dark:via-light-primary dark:to-dark-accent uppercase"
+          class="text-4xl sm:text-6xl md:text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-light-secondary via-light-accent to-light-secondary dark:from-dark-accent dark:via-light-primary dark:to-dark-accent uppercase"
         >
-          Ikhsanuddin
+          Ikhsanuddin Syamsuri
         </h1>
+
+        <p class="max-w-2xl mx-auto mb-6 text-base sm:text-lg leading-relaxed">
+          I build AI-assisted product features end to end in React and Ruby on
+          Rails, and I led the move of a blueprint canvas to PixiJS/WebGL.
+        </p>
+
+        <ul class="flex flex-wrap justify-center gap-2 mb-10 text-sm">
+          {
+            proof.map((item) => (
+              <li class="px-3 py-1.5 rounded-full border border-light-accent/20 dark:border-white/20 bg-light-bg/60 dark:bg-white/5">
+                {item}
+              </li>
+            ))
+          }
+        </ul>
 
         <div class="flex flex-wrap justify-center gap-4 mb-10">
           <a
@@ -241,7 +251,7 @@ const skillGroups = [
             <Icon name="github" /> github.com/ikhsanuddin
           </a>
           <span class="flex items-center gap-2">
-            <Icon name="map-pin" /> Remote, Worldwide
+            <Icon name="map-pin" /> Jakarta, Indonesia (UTC+7)
           </span>
         </div>
       </div>
@@ -273,22 +283,20 @@ const skillGroups = [
               class="space-y-6 text-light-accent dark:text-gray-300 leading-relaxed"
             >
               <p>
-                Senior Software Engineer with 10 years of experience shipping
-                full-stack products and cloud infrastructure. Currently
-                building AI-powered B2B preconstruction workflows at Boon,
-                fully remote.
+                I have spent 10 years building web products, and since 2023 I
+                have worked fully remote with teams in Singapore and the US. At
+                Boon I own AI-assisted preconstruction features end to end in
+                React and Ruby on Rails, on a takeoff system that handled
+                70,000+ runs in 90 days, and I led the Takeoff V2 move to a
+                PixiJS/WebGL canvas.
               </p>
               <p>
-                I work across React/Next.js, TypeScript, Node, and Go, with
-                production experience running AWS and Kubernetes. I&apos;m
-                comfortable owning a feature end-to-end: system design,
-                implementation, deployment, and monitoring.
-              </p>
-              <p>
-                Previously I led engineering teams as a Technical Lead, built a
-                Telegram-based trading app integrated with Web3 wallets, and
-                engineered services for a decentralized exchange. Open to
-                remote roles with US teams.
+                Before that I owned 5 backend services in TypeScript and Go for
+                a decentralized exchange, and led teams in Indonesia from 2019
+                to 2023. As technical lead at Tekno Kreasi Nyata I led a
+                14-person team and proposed the Kafka and microservices
+                architecture that scaled a client financial reporting system
+                from 5,000 to 100,000 incoming transactions per minute.
               </p>
             </div>
           </div>
@@ -306,7 +314,7 @@ const skillGroups = [
                   Currently
                 </dt>
                 <dd class="font-medium">
-                  Senior Software Engineer at Boon, US (Remote)
+                  Full-Stack Engineer at Boon (US, remote)
                 </dd>
               </div>
               <div>
@@ -322,14 +330,14 @@ const skillGroups = [
                   Core stack
                 </dt>
                 <dd class="font-medium">
-                  React/Next.js, TypeScript, Node, Go, AWS, Kubernetes
+                  React, TypeScript, Ruby on Rails, PixiJS/WebGL, Node.js, Go
                 </dd>
               </div>
               <div>
                 <dt class="text-sm text-light-accent dark:text-gray-400">
                   Location
                 </dt>
-                <dd class="font-medium">Remote, worldwide</dd>
+                <dd class="font-medium">Jakarta, Indonesia (UTC+7)</dd>
               </div>
             </dl>
           </div>
@@ -390,17 +398,7 @@ const skillGroups = [
                 <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-light-secondary dark:text-dark-accent">
                   {group.title}
                 </h3>
-                <ul class="max-w-3xl space-y-3 text-light-accent dark:text-gray-300 mb-6">
-                  {group.items.map((item) => (
-                    <li class="flex gap-3">
-                      <span class="text-light-secondary dark:text-dark-accent mt-1">
-                        →
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <ul class="flex flex-wrap gap-2 mt-6">
+                <ul class="flex flex-wrap gap-2">
                   {group.tools.map((tool) => (
                     <li
                       class={`px-3 py-1.5 border rounded-full text-sm transition-colors ${group.toolClass}`}

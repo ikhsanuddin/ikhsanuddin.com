@@ -13,15 +13,17 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { title, date, category, imageUrl, imageClassName } = post.data;
+const { title, date, category, imageUrl, imageClassName, description, ogImage, unlisted } =
+  post.data;
 const { Content } = await render(post);
 ---
 
 <Base
   title={title}
-  description={title}
+  description={description ?? title}
   ogType="article"
-  ogImage={imageUrl}
+  ogImage={ogImage ?? imageUrl}
+  noindex={unlisted}
   publishedTime={isoDate(date)}
 >
   <main class="min-h-screen">
@@ -81,9 +83,9 @@ const { Content } = await render(post);
           <div class="flex flex-col">
             <h4 class="text-lg font-semibold">Ikhsanuddin Syamsuri</h4>
             <p class="dark:text-gray-400">
-              Ikhsan is a web developer, with his main focus was in frontend,
-              but he also be able to do backend and devops to help in
-              development process.
+              Ikhsan is a senior software engineer in Jakarta. He builds
+              AI-assisted product features in React and Ruby on Rails, and
+              writes here about browser performance and product analytics.
             </p>
           </div>
         </div>
@@ -130,7 +132,7 @@ const { Content } = await render(post);
           </a>
           <a
             rel="noopener noreferrer"
-            href="mailto:mail.ikhsanuddin@gmail.com?subject=I%20saw%20your%20website%20and%20i%20willing%20to%20connect"
+            href="mailto:mail.ikhsanuddin@gmail.com?subject=From%20ikhsanuddin.com"
             aria-label="Email"
             class="p-2 rounded-md dark:text-gray-100 hover:dark:text-violet-400"
           >

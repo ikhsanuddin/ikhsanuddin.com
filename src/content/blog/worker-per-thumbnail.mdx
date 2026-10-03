@@ -3,6 +3,8 @@ title: "A worker per thumbnail: fixing a browser memory crash without breaking d
 date: 2026-08-13
 category: Performance
 imageUrl: /blog/worker-per-thumbnail.svg
+ogImage: /blog/worker-per-thumbnail.png
+description: "A PDF page grid created one Web Worker per thumbnail card and crashed the tab. The lazy-worker fix, the lifecycle bug inside it, and the tests that held it."
 ---
 
 A PDF viewer I worked on had a page manager for browsing and reordering large sets of pages. Most of the time it behaved well. Open reorder mode on a large document, though, and the browser tab could consume enough memory to become unresponsive or crash.

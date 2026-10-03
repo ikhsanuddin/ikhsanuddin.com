@@ -9,6 +9,11 @@ const blog = defineCollection({
     category: z.string(),
     imageUrl: z.string(),
     imageClassName: z.string().optional(),
+    description: z.string().optional(),
+    // PNG/JPG for link previews; LinkedIn does not render SVG.
+    ogImage: z.string().optional(),
+    // Kept reachable by URL, hidden from lists and search engines.
+    unlisted: z.boolean().optional(),
     author: z
       .object({
         name: z.string(),

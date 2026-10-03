@@ -4,7 +4,7 @@ import Base from "@/layouts/Base.astro";
 import PostCard from "@/components/PostCard.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.unlisted);
   const categories = [
     ...new Set(posts.map((post) => post.data.category.toLowerCase())),
   ];
@@ -13,14 +13,14 @@ export async function getStaticPaths() {
 
 const { category } = Astro.params;
 
-const posts = (await getCollection("blog"))
+const posts = (await getCollection("blog", ({ data }) => !data.unlisted))
   .filter((post) => post.data.category.toLowerCase() === category)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <Base
-  title="Blog Categories - Ikhsanuddin Syamsuri"
-  description="Ikhsanuddin's programming journey"
+  title={`#${category} - Ikhsanuddin Syamsuri`}
+  description={`Posts in #${category} by Ikhsanuddin Syamsuri.`}
 >
   <main class="py-24 sm:py-32 min-h-screen">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">

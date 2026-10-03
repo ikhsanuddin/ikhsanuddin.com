@@ -3,14 +3,16 @@ import { getCollection } from "astro:content";
 import Base from "@/layouts/Base.astro";
 import PostCard from "@/components/PostCard.astro";
 
-const posts = (await getCollection("blog")).sort(
+const posts = (
+  await getCollection("blog", ({ data }) => !data.unlisted)
+).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 ---
 
 <Base
   title="Blog - Ikhsanuddin Syamsuri"
-  description="Ikhsanuddin's programming journey"
+  description="Ikhsanuddin Syamsuri on browser performance, canvas rendering, and product analytics."
 >
   <main class="py-24 sm:py-32 min-h-screen">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">

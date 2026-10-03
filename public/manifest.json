@@ -1,6 +1,6 @@
 {
     "short_name": "Ikhsanuddin",
-    "name": "Ikhsanuddin - Senior Software Engineer",
+    "name": "Ikhsanuddin Syamsuri - Senior Software Engineer",
     "icons": [
       {
         "src": "favicon.ico",
@@ -25,6 +25,6 @@
     "theme_color": "#0a0a0a",
     "background_color": "#0a0a0a",
     "orientation": "portrait",
-    "description": "Senior Software Engineer building AI-powered B2B products across frontend, backend, and cloud infrastructure."
+    "description": "Senior software engineer in Jakarta (UTC+7). AI-assisted product features in React and Ruby on Rails, PixiJS/WebGL canvas work, 10 years of web products."
   }
   

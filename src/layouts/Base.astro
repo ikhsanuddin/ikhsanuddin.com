@@ -9,12 +9,13 @@ interface Props {
   ogType?: string;
   ogImage?: string;
   publishedTime?: string;
+  noindex?: boolean;
 }
 
 const SITE_NAME = "Ikhsanuddin";
-const DEFAULT_TITLE = "Ikhsanuddin - Senior Software Engineer";
+const DEFAULT_TITLE = "Ikhsanuddin Syamsuri - Senior Software Engineer";
 const DEFAULT_DESCRIPTION =
-  "Senior Software Engineer building AI-powered B2B products across frontend, backend, and cloud infrastructure.";
+  "Senior software engineer in Jakarta (UTC+7). AI-assisted product features in React and Ruby on Rails, PixiJS/WebGL canvas work, 10 years of web products.";
 const DEFAULT_OG_IMAGE =
   "https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin?tr=w-1080";
 
@@ -24,9 +25,12 @@ const {
   ogType = "website",
   ogImage = DEFAULT_OG_IMAGE,
   publishedTime,
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// Link previews (LinkedIn, Slack) need an absolute og:image URL.
+const ogImageURL = new URL(ogImage, Astro.site);
 ---
 
 <!doctype html>
@@ -39,6 +43,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0C0C0C" />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
@@ -100,7 +105,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageURL} />
     <meta property="og:locale" content="en_US" />
     {
       publishedTime && (
@@ -112,7 +117,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Apply saved theme before first paint to avoid flashing -->
     <script is:inline>
