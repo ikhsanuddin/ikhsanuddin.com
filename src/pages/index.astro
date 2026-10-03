@@ -169,6 +169,7 @@ const skillGroups = [
 
 <Base>
   <main
+    id="main"
     class="min-h-screen bg-light-bg dark:bg-dark-bg text-light-accent dark:text-white"
   >
     <!-- Hero Section -->
@@ -370,7 +371,7 @@ const skillGroups = [
                 <ul class="max-w-3xl space-y-2 text-light-accent dark:text-gray-300">
                   {exp.bullets.map((bullet) => (
                     <li class="flex gap-2">
-                      <span class="text-light-secondary dark:text-dark-accent mt-1">
+                      <span class="text-light-secondary dark:text-dark-accent mt-1" aria-hidden="true">
                         →
                       </span>
                       <span>{bullet}</span>
@@ -427,7 +428,7 @@ const skillGroups = [
         <div class="grid md:grid-cols-3 gap-6 mb-12">
           <a
             href="mailto:mail.ikhsanuddin@gmail.com"
-            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-all hover:scale-105"
+            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-[background-color,scale] hover:scale-105"
           >
             <Icon
               name="mail"
@@ -443,7 +444,7 @@ const skillGroups = [
             href="https://linkedin.com/in/ikhsanuddin"
             target="_blank"
             rel="noopener noreferrer"
-            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-all hover:scale-105"
+            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-[background-color,scale] hover:scale-105"
           >
             <Icon
               name="linkedin"
@@ -459,7 +460,7 @@ const skillGroups = [
             href="https://github.com/ikhsanuddin"
             target="_blank"
             rel="noopener noreferrer"
-            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-all hover:scale-105"
+            class="p-6 bg-light-accent/5 dark:bg-white/5 border border-light-accent/10 dark:border-white/10 rounded-2xl hover:bg-light-accent/10 dark:hover:bg-white/10 transition-[background-color,scale] hover:scale-105"
           >
             <Icon
               name="github"
@@ -475,7 +476,7 @@ const skillGroups = [
         <a
           href="/Ikhsanuddin Syamsuri - Senior Software Engineer.pdf"
           download
-          class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-light-secondary to-light-accent dark:from-dark-secondary dark:to-dark-accent hover:from-light-accent hover:to-light-secondary dark:hover:from-dark-accent dark:hover:to-dark-secondary rounded-full font-bold transition-all hover:scale-105 text-white"
+          class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-light-secondary to-light-accent dark:from-dark-secondary dark:to-dark-accent hover:from-light-accent hover:to-light-secondary dark:hover:from-dark-accent dark:hover:to-dark-secondary rounded-full font-bold transition-[--tw-gradient-from,--tw-gradient-to,scale] hover:scale-105 text-white"
         >
           <Icon name="download" class="text-xl" />
           Download CV

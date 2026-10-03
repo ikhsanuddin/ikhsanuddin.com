@@ -26,14 +26,14 @@ const { Content } = await render(post);
   noindex={unlisted}
   publishedTime={isoDate(date)}
 >
-  <main class="min-h-screen">
+  <main id="main" class="min-h-screen">
     <article
       class="max-w-4xl px-6 pt-40 py-24 mx-auto space-y-12 dark:text-gray-50"
     >
       <div class="w-full mx-auto space-y-4 text-center">
         <a
           href={`/blog/category/${category.toLowerCase()}/`}
-          class="text-xs font-semibold tracking uppercase"
+          class="text-xs font-semibold tracking uppercase hover:text-light-secondary dark:hover:text-dark-accent transition-colors"
         >
           #{category}
         </a>
@@ -43,7 +43,7 @@ const { Content } = await render(post);
           <a
             rel="noopener noreferrer"
             href="/about/ikhsanuddin/"
-            class="underline dark:text-orange-400"
+            class="underline dark:text-orange-400 hover:text-light-secondary dark:hover:text-orange-300 transition-colors"
           >
             <span itemprop="name">Ikhsanuddin Syamsuri</span>
           </a>{" "}
@@ -60,6 +60,7 @@ const { Content } = await render(post);
           <img
             src={imageUrl}
             alt={title}
+            fetchpriority="high"
             class="mx-auto md:justify-self-start dark:bg-gray-500"
           />
         </picture>
@@ -77,11 +78,14 @@ const { Content } = await render(post);
             <img
               src="https://ik.imagekit.io/ikhsanuddin/profile/ikhsanuddin-512.jpg"
               alt="Ikhsanuddin Syamsuri"
+              width="96"
+              height="96"
+              loading="lazy"
               class="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-700"
             />
           </picture>
           <div class="flex flex-col">
-            <h4 class="text-lg font-semibold">Ikhsanuddin Syamsuri</h4>
+            <h2 class="text-lg font-semibold">Ikhsanuddin Syamsuri</h2>
             <p class="dark:text-gray-400">
               Ikhsan is a senior software engineer in Jakarta. He builds
               AI-assisted product features in React and Ruby on Rails, and
@@ -94,10 +98,11 @@ const { Content } = await render(post);
             rel="noopener noreferrer"
             href="https://github.com/ikhsanuddin"
             aria-label="GitHub"
-            class="p-2 rounded-md dark:text-gray-100 hover:dark:text-violet-400"
+            class="p-2 rounded-md dark:text-gray-100 hover:text-light-secondary hover:dark:text-violet-400 transition-colors"
             target="_blank"
           >
             <svg
+              aria-hidden="true"
               viewBox="0 0 496 512"
               xmlns="http://www.w3.org/2000/svg"
               class="w-4 h-4 fill-current"
@@ -111,10 +116,11 @@ const { Content } = await render(post);
             rel="noopener noreferrer"
             href="https://linkedin.com/in/ikhsanuddin"
             aria-label="Linked In"
-            class="p-2 rounded-md dark:text-gray-100 hover:dark:text-violet-400"
+            class="p-2 rounded-md dark:text-gray-100 hover:text-light-secondary hover:dark:text-violet-400 transition-colors"
             target="_blank"
           >
             <svg
+              aria-hidden="true"
               viewBox="0 0 310 310"
               xmlns="http://www.w3.org/2000/svg"
               class="w-4 h-4 fill-current"
@@ -134,9 +140,10 @@ const { Content } = await render(post);
             rel="noopener noreferrer"
             href="mailto:mail.ikhsanuddin@gmail.com?subject=From%20ikhsanuddin.com"
             aria-label="Email"
-            class="p-2 rounded-md dark:text-gray-100 hover:dark:text-violet-400"
+            class="p-2 rounded-md dark:text-gray-100 hover:text-light-secondary hover:dark:text-violet-400 transition-colors"
           >
             <svg
+              aria-hidden="true"
               viewBox="0 0 512 512"
               xmlns="http://www.w3.org/2000/svg"
               class="w-4 h-4 fill-current"

@@ -41,7 +41,16 @@ const ogImageURL = new URL(ogImage, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0C0C0C" />
+    <meta
+      name="theme-color"
+      content="#f4e7e1"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0c0c0c"
+      media="(prefers-color-scheme: dark)"
+    />
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -130,6 +139,12 @@ const ogImageURL = new URL(ogImage, Astro.site);
     </script>
   </head>
   <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-md focus:bg-light-bg focus:px-4 focus:py-2 dark:focus:bg-dark-bg"
+    >
+      Skip to content
+    </a>
     <Header />
     <slot />
     <Footer />

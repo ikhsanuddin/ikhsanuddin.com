@@ -22,14 +22,14 @@ const posts = (await getCollection("blog", ({ data }) => !data.unlisted))
   title={`#${category} - Ikhsanuddin Syamsuri`}
   description={`Posts in #${category} by Ikhsanuddin Syamsuri.`}
 >
-  <main class="py-24 sm:py-32 min-h-screen">
+  <main id="main" class="py-24 sm:py-32 min-h-screen">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:mx-0">
-        <h2
+        <h1
           class="text-3xl font-bold tracking-tight text-gray-900 dark:text-neutral-100 sm:text-4xl"
         >
           #{category}
-        </h2>
+        </h1>
         <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-neutral-400">
           The post related to each other
         </p>
