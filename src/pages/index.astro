@@ -3,6 +3,8 @@ import Base from "@/layouts/Base.astro";
 import DotGrid from "@/components/DotGrid.astro";
 import Icon from "@/components/icons/Icon.astro";
 
+const heroName = "Ikhsanuddin Syamsuri";
+
 const experiences = [
   {
     period: "February 2026 - Present",
@@ -190,12 +192,19 @@ const skillGroups = [
         <h1
           class="text-4xl sm:text-6xl md:text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-light-secondary via-light-accent to-light-secondary dark:from-dark-accent dark:via-light-primary dark:to-dark-accent uppercase"
         >
-          Ikhsanuddin Syamsuri
+          <span class="sr-only">{heroName}</span>
+          <span aria-hidden="true">
+            {[...heroName].map((c, i) => (
+              <span class="type-char" style={`--d: ${300 + i * 80}ms`}>{c}</span>
+            ))}
+          </span>
         </h1>
 
-        <p class="max-w-2xl mx-auto mb-10 text-base sm:text-lg leading-relaxed">
-          I build AI-assisted product features end to end in React and Ruby on
-          Rails, and I led the move of a blueprint canvas to PixiJS/WebGL.
+        <p class="max-w-2xl mx-auto mb-3 text-lg sm:text-2xl font-semibold leading-snug">
+          AI-assisted product features, shipped end to end.
+        </p>
+        <p class="max-w-2xl mx-auto mb-10 text-sm sm:text-base tracking-wide">
+          React, PixiJS/WebGL, Rails, Go
         </p>
 
         <div class="flex flex-wrap justify-center gap-4 mb-10">

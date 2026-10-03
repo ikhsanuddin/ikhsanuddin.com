@@ -77,6 +77,54 @@
   animation: fadeInUp 0.6s ease-out;
 }
 
+/* Hero name types itself in on every load. Each letter appears at its own --d.
+   visibility, not opacity, so the h1's bg-clip-text gradient still paints it. */
+.type-char {
+  position: relative;
+  visibility: hidden;
+  animation: type-show 0s var(--d) forwards;
+}
+
+.type-char::after {
+  content: "";
+  position: absolute;
+  top: 0.12em;
+  bottom: 0.12em;
+  right: -0.06em;
+  width: 0.06em;
+  opacity: 0;
+  @apply bg-light-secondary dark:bg-dark-accent;
+  animation: type-caret 80ms steps(1) var(--d);
+}
+
+.type-char:last-child::after {
+  animation: type-caret-blink 0.9s steps(1) var(--d) 4;
+}
+
+@keyframes type-show {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes type-caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes type-caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -88,6 +136,16 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* The global rule keeps animation delays, so show the name at once. */
+  .type-char {
+    visibility: visible;
+    animation: none;
+  }
+
+  .type-char::after {
+    display: none;
   }
 }
 
